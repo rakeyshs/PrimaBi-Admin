@@ -1,0 +1,249 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb
+        [title]="'Add Pages'"
+        [items]="['Pages']"
+        [active_item]="'Add Pages'"
+      >
+      </app-breadcrumb>
+    </div>
+    <!-- Basic Validation -->
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Add Pages</strong></h2>
+          </div>
+          <div class="body">
+            <form
+              class="m-4"
+              class="register-form m-4"
+              [formGroup]="addPagesForm"
+              (ngSubmit)="onAddPagesForm()"
+            >
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-label>Title</mat-label>
+                    <input matInput formControlName="title" required />
+                    <mat-icon matSuffix></mat-icon>
+                    <mat-error
+                      *ngIf="addPagesForm.get('title').hasError('required')"
+                    >
+                      Title is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-label>Keyword</mat-label>
+                    <input matInput formControlName="keyword" required />
+                    <mat-icon matSuffix></mat-icon>
+                    <mat-error
+                      *ngIf="addPagesForm.get('keyword').hasError('required')"
+                    >
+                      Keyword is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-label>PPT Upload</mat-label>
+                  <div class="file-drop-area">
+                    <span class="ms-2" *ngIf="myFiles1.length == 0">{{
+                      "Choose file or drag and drop file here"
+                    }}</span>
+                    <span class="file-msg" *ngFor="let file of myFiles1">
+                      <div class="me-2">{{ file.name }}</div>
+                    </span>
+                    <input
+                      class="file-input"
+                      type="file"
+                      formControlName="pptUpload"
+                      multiple
+                      (change)="getFile1Details($event)"
+                      required
+                    />
+                  </div>
+                  <mat-error
+                    *ngIf="
+                      addPagesForm.controls['pptUpload'].touched &&
+                      addPagesForm.controls['pptUpload'].invalid
+                    "
+                    >PPT File is required</mat-error
+                  >
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-label>Video Image Upload</mat-label>
+
+                  <div class="file-drop-area">
+                    <span class="ms-2" *ngIf="myFiles2.length == 0">{{
+                      "Choose file or drag and drop file here"
+                    }}</span>
+                    <span class="file-msg" *ngFor="let file of myFiles2">
+                      <div class="me-2">{{ file.name }}</div>
+                    </span>
+                    <input
+                      class="file-input"
+                      type="file"
+                      formControlName="videoImageUpload"
+                      (change)="getFile2Details($event)"
+                      required
+                    />
+                  </div>
+                  <mat-error
+                    *ngIf="
+                      addPagesForm.controls['videoImageUpload'].touched &&
+                      addPagesForm.controls['videoImageUpload'].invalid
+                    "
+                    >Video Image is required</mat-error
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-label>Video URL</mat-label>
+                    <input matInput formControlName="videoURL" required />
+                    <mat-icon matSuffix></mat-icon>
+                    <mat-error
+                      *ngIf="addPagesForm.get('videoURL').hasError('required')"
+                    >
+                      Video URL is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-label>Description</mat-label>
+                    <textarea
+                      matInput
+                      formControlName="description"
+                      required
+                    ></textarea>
+                    <mat-error
+                      *ngIf="
+                        addPagesForm.get('description').hasError('required')
+                      "
+                      >Description is required</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr />
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field
+                    class="example-full-width"
+                    appearance="outline"
+                  >
+                    <mat-label>Heading</mat-label>
+                    <input matInput formControlName="accordionHeading" />
+                    <mat-error
+                      *ngIf="
+                        addPagesForm
+                          .get('accordionHeading')
+                          .hasError('required')
+                      "
+                      >Heading is required</mat-error
+                    >
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-label>Description</mat-label>
+                  <ckeditor
+                    [editor]="Editor"
+                    formControlName="accordionDescription"
+                  ></ckeditor>
+                </div>
+              </div>
+
+              <div class="col-sm-10" align="right">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="addCapacity()"
+                >
+                  Add Information</button
+                >&nbsp;
+              </div>
+
+              <table
+                class="table table-bordered table-striped mb-0"
+                id="datatable-default"
+                *ngIf="isTableVisible"
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Heading</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let accoArray of accoArrayLists; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ accoArray.accordionHeading }}</td>
+                    <td>{{ accoArray.accordionDescription }}</td>
+
+                    <td class="actions">
+                      <a
+                        title="Delete Capacity"
+                        (click)="deleteCapacity(platCapacity)"
+                        class="delete-row"
+                        ><i class="far fa-trash-alt"></i
+                      ></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <hr />
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button
+                    class="btn-space"
+                    [disabled]="!addPagesForm.valid"
+                    mat-raised-button
+                    color="primary"
+                  >
+                    Submit
+                  </button>
+                  <button type="button" mat-button>Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- #END# Basic Validation -->
+  </div>
+</section>
