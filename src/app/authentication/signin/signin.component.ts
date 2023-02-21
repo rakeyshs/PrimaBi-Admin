@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from "@angular/forms";
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from "@angular/forms";
 import { AuthService } from "src/app/core/service/auth.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 @Component({
@@ -51,7 +55,7 @@ export class SigninComponent
               const token = this.authService.currentUserValue.token;
               console.log(token);
               if (token) {
-                this.router.navigate(["/dashboard/dashboard1"]);
+                this.router.navigate(["/dashboard/"]);
               }
             } else {
               this.error = "Invalid Login";
