@@ -1,15 +1,16 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Component, Inject } from "@angular/core";
-import { AdvanceTableService } from "../../advance-table.service";
+import { MenuSubMenuService } from "../../menu-sub-menu.service";
 import {
   UntypedFormControl,
   Validators,
   UntypedFormGroup,
   UntypedFormBuilder,
 } from "@angular/forms";
-import { AdvanceTable } from "../../advance-table.model";
+import { MenuSubMenuModel } from "../../menu-sub-menu.model";
 import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { formatDate } from "@angular/common";
+
 @Component({
   selector: "app-form-dialog",
   templateUrl: "./form-dialog.component.html",
@@ -22,11 +23,11 @@ export class FormDialogComponent {
   dialogTitle: string;
   parentOption: string;
   advanceTableForm: UntypedFormGroup;
-  advanceTable: AdvanceTable;
+  advanceTable: MenuSubMenuModel;
   constructor(
     public dialogRef: MatDialogRef<FormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public advanceTableService: AdvanceTableService,
+    public advanceTableService: MenuSubMenuService,
     private fb: UntypedFormBuilder
   ) {
     // Set the defaults
@@ -39,7 +40,7 @@ export class FormDialogComponent {
       this.advanceTable = data.advanceTable;
     } else {
       this.dialogTitle = "New Record";
-      this.advanceTable = new AdvanceTable({});
+      this.advanceTable = new MenuSubMenuModel({});
     }
     this.advanceTableForm = this.createContactForm();
   }

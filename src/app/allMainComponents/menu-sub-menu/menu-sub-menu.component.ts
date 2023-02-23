@@ -1,28 +1,30 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { AdvanceTableService } from "./advance-table.service";
+import { MenuSubMenuService } from "./menu-sub-menu.service";
+
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { AdvanceTable } from "./advance-table.model";
+import { MenuSubMenuModel } from "./menu-sub-menu.model";
 import { DataSource } from "@angular/cdk/collections";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { BehaviorSubject, fromEvent, merge, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { FormDialogComponent } from "./dialogs/form-dialog/form-dialog.component";
-import { DeleteDialogComponent } from "./dialogs/delete/delete.component";
+import { DeleteDialogComponent } from "./dialogs/delete-dialog/delete-dialog.component";
 import { DateAdapter, MAT_DATE_LOCALE } from "@angular/material/core";
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu";
 import { SelectionModel } from "@angular/cdk/collections";
-import { UnsubscribeOnDestroyAdapter } from "../shared/UnsubscribeOnDestroyAdapter";
+
+import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 
 @Component({
-  selector: "app-advance-table",
-  templateUrl: "./advance-table.component.html",
-  styleUrls: ["./advance-table.component.sass"],
+  selector: "app-menu-sub-menu",
+  templateUrl: "./menu-sub-menu.component.html",
+  styleUrls: ["./menu-sub-menu.component.sass"],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: "en-GB" }],
 })
-export class AdvanceTableComponent
+export class MenuSubMenuComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit
 {
@@ -42,16 +44,16 @@ export class AdvanceTableComponent
     // "country",
     "actions",
   ];
-  exampleDatabase: AdvanceTableService | null;
+  exampleDatabase: MenuSubMenuService | null;
   dataSource: ExampleDataSource | null;
-  selection = new SelectionModel<AdvanceTable>(true, []);
+  selection = new SelectionModel<MenuSubMenuModel>(true, []);
   menuId: number;
-  advanceTable: AdvanceTable | null;
+  advanceTable: MenuSubMenuModel | null;
 
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public advanceTableService: AdvanceTableService,
+    public advanceTableService: MenuSubMenuService,
     private snackBar: MatSnackBar
   ) {
     super();
@@ -193,7 +195,7 @@ export class AdvanceTableComponent
       // console.log(this.dataSource.renderedData.findIndex((d) => d === item));
       this.exampleDatabase.dataChange.value.splice(index, 1);
       this.refreshTable();
-      this.selection = new SelectionModel<AdvanceTable>(true, []);
+      this.selection = new SelectionModel<MenuSubMenuModel>(true, []);
     });
     this.showNotification(
       "snackbar-danger",
@@ -203,7 +205,7 @@ export class AdvanceTableComponent
     );
   }
   public loadData() {
-    this.exampleDatabase = new AdvanceTableService(this.httpClient);
+    this.exampleDatabase = new MenuSubMenuService(this.httpClient);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -228,7 +230,7 @@ export class AdvanceTableComponent
   }
 
   // context menu
-  onContextMenu(event: MouseEvent, item: AdvanceTable) {
+  onContextMenu(event: MouseEvent, item: MenuSubMenuModel) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -237,7 +239,7 @@ export class AdvanceTableComponent
     this.contextMenu.openMenu();
   }
 }
-export class ExampleDataSource extends DataSource<AdvanceTable> {
+export class ExampleDataSource extends DataSource<MenuSubMenuModel> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -245,10 +247,10 @@ export class ExampleDataSource extends DataSource<AdvanceTable> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: AdvanceTable[] = [];
-  renderedData: AdvanceTable[] = [];
+  filteredData: MenuSubMenuModel[] = [];
+  renderedData: MenuSubMenuModel[] = [];
   constructor(
-    public exampleDatabase: AdvanceTableService,
+    public exampleDatabase: MenuSubMenuService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -257,7 +259,7 @@ export class ExampleDataSource extends DataSource<AdvanceTable> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<AdvanceTable[]> {
+  connect(): Observable<MenuSubMenuModel[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -271,7 +273,7 @@ export class ExampleDataSource extends DataSource<AdvanceTable> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((advanceTable: AdvanceTable) => {
+          .filter((advanceTable: MenuSubMenuModel) => {
             const searchStr = (
               advanceTable.menuName +
               advanceTable.menuDescription +
@@ -296,7 +298,7 @@ export class ExampleDataSource extends DataSource<AdvanceTable> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: AdvanceTable[]): AdvanceTable[] {
+  sortData(data: MenuSubMenuModel[]): MenuSubMenuModel[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }

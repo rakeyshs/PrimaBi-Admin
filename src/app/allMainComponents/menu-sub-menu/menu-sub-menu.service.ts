@@ -1,21 +1,25 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { AdvanceTable } from "./advance-table.model";
+
+import { MenuSubMenuModel } from "./menu-sub-menu.model";
 import {
   HttpClient,
   HttpErrorResponse,
   HttpHeaders,
 } from "@angular/common/http";
-import { UnsubscribeOnDestroyAdapter } from "../shared/UnsubscribeOnDestroyAdapter";
+import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 @Injectable()
-export class AdvanceTableService extends UnsubscribeOnDestroyAdapter {
+@Injectable({
+  providedIn: "root",
+})
+export class MenuSubMenuService extends UnsubscribeOnDestroyAdapter {
   private readonly API_URL = "assets/data/advanceTable.json";
 
   url = "https://api.primabi.co/api/v1/";
 
   isTblLoading = true;
-  dataChange: BehaviorSubject<AdvanceTable[]> = new BehaviorSubject<
-    AdvanceTable[]
+  dataChange: BehaviorSubject<MenuSubMenuModel[]> = new BehaviorSubject<
+    MenuSubMenuModel[]
   >([]);
   // Temporarily stores data from dialogs
   dialogData: any;
@@ -26,7 +30,7 @@ export class AdvanceTableService extends UnsubscribeOnDestroyAdapter {
   get data1() {
     return this.httpClient.get(this.url + "menu");
   }
-  get data(): AdvanceTable[] {
+  get data(): MenuSubMenuModel[] {
     return this.dataChange.value;
   }
   getDialogData() {
@@ -35,7 +39,7 @@ export class AdvanceTableService extends UnsubscribeOnDestroyAdapter {
   /** CRUD METHODS */
   getAllAdvanceTables(): void {
     this.subs.sink = this.httpClient
-      .get<AdvanceTable[]>(this.url + "menu")
+      .get<MenuSubMenuModel[]>(this.url + "menu")
       .subscribe(
         (data) => {
           this.isTblLoading = false;
@@ -47,7 +51,7 @@ export class AdvanceTableService extends UnsubscribeOnDestroyAdapter {
         }
       );
   }
-  addAdvanceTable(advanceTable: AdvanceTable): void {
+  addAdvanceTable(advanceTable: MenuSubMenuModel): void {
     // this.dialogData = advanceTable;
 
     this.httpClient.post(this.url + "menu/add", advanceTable).subscribe(
@@ -59,7 +63,7 @@ export class AdvanceTableService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
-  updateAdvanceTable(advanceTable: AdvanceTable): void {
+  updateAdvanceTable(advanceTable: MenuSubMenuModel): void {
     this.dialogData = advanceTable;
 
     this.httpClient

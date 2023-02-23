@@ -14,14 +14,19 @@ const routes: Routes = [
       {
         path: "dashboard",
         loadChildren: () =>
-          import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
+          import("./allMainComponents/dashboard/dashboard.module").then(
+            (m) => m.DashboardModule
+          ),
       },
       {
         path: "menu-subMenu",
         loadChildren: () =>
-          import("./advance-table/advance-table.module").then(
-            (m) => m.AdvanceTableModule
+          import("./allMainComponents/menu-sub-menu/menu-sub-menu.module").then(
+            (m) => m.MenuSubMenuModule
           ),
+        // import("./advance-table/advance-table.module").then(
+        //   (m) => m.AdvanceTableModule
+        // ),
       },
       {
         path: "add-pages",
@@ -31,10 +36,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: "pages",
+        path: "content-pages",
         loadChildren: () =>
-          import("./extra-pages/extra-pages.module").then(
-            (m) => m.ExtraPagesModule
+          import("./allMainComponents/content-pages/content-pages.module").then(
+            (m) => m.ContentPagesModule
           ),
       },
       {

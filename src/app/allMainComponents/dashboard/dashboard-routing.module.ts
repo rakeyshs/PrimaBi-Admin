@@ -1,11 +1,12 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AdvanceTableComponent } from "./advance-table.component";
+import { Page404Component } from "src/app/authentication/page404/page404.component";
+import { DashboardComponent } from "./dashboard.component";
 
 const routes: Routes = [
   {
     path: "",
-    component: AdvanceTableComponent,
+    component: DashboardComponent,
   },
 ];
 
@@ -13,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdvanceTableRoutingModule {}
+export class DashboardRoutingModule {}

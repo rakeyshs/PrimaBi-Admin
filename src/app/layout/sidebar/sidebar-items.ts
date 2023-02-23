@@ -45,7 +45,7 @@ export const ROUTES: RouteInfo[] = [
     badgeClass: "",
     submenu: [
       {
-        path: "/pages/add-pages",
+        path: "/content-pages/add-pages",
         title: "Add Pages",
         iconType: "",
         icon: "",
@@ -56,7 +56,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: "/pages/pages-details",
+        path: "/content-pages/pages-details",
         title: "Pages Details",
         iconType: "",
         icon: "",

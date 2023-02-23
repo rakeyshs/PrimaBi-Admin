@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormDialogComponent } from './form-dialog.component';
+import { AddPagesComponent } from './add-pages.component';
 
-describe('FormDialogComponent', () => {
-  let component: FormDialogComponent;
-  let fixture: ComponentFixture<FormDialogComponent>;
+describe('AddPagesComponent', () => {
+  let component: AddPagesComponent;
+  let fixture: ComponentFixture<AddPagesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormDialogComponent ]
+      declarations: [ AddPagesComponent ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FormDialogComponent);
+    fixture = TestBed.createComponent(AddPagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
