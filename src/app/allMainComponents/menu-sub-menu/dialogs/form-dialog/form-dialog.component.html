@@ -1,0 +1,244 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          {{ dialogTitle }}
+        </div>
+      </div>
+    </div>
+    <button
+      mat-icon-button
+      (click)="dialogRef.close()"
+      class="modal-close-button"
+      aria-label="Close dialog"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form
+      class="register-form m-4"
+      [formGroup]="advanceTableForm"
+      (ngSubmit)="(submit)"
+    >
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <label for="menuName">Menu Name</label>&nbsp;<span style="color: red"
+            >*</span
+          >
+          <input
+            class="form-control"
+            type="text"
+            [formControl]="advanceTableForm.controls['menuName']"
+            id="menuName"
+            formControlName="menuName"
+            name=""
+            placeholder="Menu Name"
+            [class.is-invalid]="
+              advanceTableForm.controls['menuName'].touched &&
+              advanceTableForm.controls['menuName'].invalid
+            "
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['menuName'].touched &&
+              advanceTableForm.controls['menuName'].invalid
+            "
+          >
+            Menu Name is Required
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <label for="parentId">Parent Menu</label>&nbsp;<span
+            style="color: red"
+            >*</span
+          >
+
+          <select
+            class="form-control"
+            [formControl]="advanceTableForm.controls['parentId']"
+            id="parentId"
+            formControlName="parentId"
+            name=""
+            placeholder="Menu Code"
+            [class.is-invalid]="
+              advanceTableForm.controls['parentId'].touched &&
+              advanceTableForm.controls['parentId'].invalid
+            "
+            required
+          >
+            <option selected value disabled>Select Parent</option>
+            <option value="0">{{ parentOption }}</option>
+
+            <option *ngFor="let i of apiData" value="{{ i.menuId }}">
+              {{ i.menuName }}
+            </option>
+          </select>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['parentId'].touched &&
+              advanceTableForm.controls['parentId'].invalid
+            "
+          >
+            Parent Menu is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <label for="icon">Menu Icon</label>
+          <input
+            class="form-control"
+            type="text"
+            [formControl]="advanceTableForm.controls['icon']"
+            id="icon"
+            formControlName="icon"
+            name=""
+            placeholder="Icons"
+          />
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <label for="sequenceNo">Menu Order</label>&nbsp;<span
+            style="color: red"
+            >*</span
+          >
+
+          <select
+            class="form-control"
+            [formControl]="advanceTableForm.controls['sequenceNo']"
+            [class.is-invalid]="
+              advanceTableForm.controls['sequenceNo'].touched &&
+              advanceTableForm.controls['sequenceNo'].invalid
+            "
+            required
+          >
+            <option selected value disabled>Select menu order</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+          </select>
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['sequenceNo'].touched &&
+              advanceTableForm.controls['sequenceNo'].invalid
+            "
+          >
+            Parent Menu is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <label for="url">URL</label>&nbsp;<span style="color: red">*</span>
+          <input
+            class="form-control"
+            type="text"
+            [formControl]="advanceTableForm.controls['url']"
+            id="url"
+            formControlName="url"
+            name="url"
+            placeholder="URL"
+            [class.is-invalid]="
+              advanceTableForm.controls['url'].touched &&
+              advanceTableForm.controls['url'].invalid
+            "
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['url'].touched &&
+              advanceTableForm.controls['url'].invalid
+            "
+          >
+            URL is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <label for="menuDescription">Description</label>&nbsp;<span
+            style="color: red"
+            >*</span
+          >
+          <textarea
+            class="form-control"
+            formControlName="menuDescription"
+            [formControl]="advanceTableForm.controls['menuDescription']"
+            placeholder="Description"
+            [class.is-invalid]="
+              advanceTableForm.controls['menuDescription'].touched &&
+              advanceTableForm.controls['menuDescription'].invalid
+            "
+            required
+            name="menuDescription"
+            id="menuDescription"
+            cols="30"
+            rows="3"
+          ></textarea>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['menuDescription'].touched &&
+              advanceTableForm.controls['menuDescription'].invalid
+            "
+          >
+            Description is Required
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row">
+            <button
+              mat-raised-button
+              color="primary"
+              [type]="submit"
+              [disabled]="!advanceTableForm.valid"
+              [mat-dialog-close]="1"
+              (click)="confirmAdd()"
+            >
+              Save
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="onNoClick()"
+              tabindex="-1"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

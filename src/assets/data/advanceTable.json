@@ -1,0 +1,42 @@
+[
+  {
+    "id": "001",
+    "menu_code": "MU001",
+    "menu_name": "Home",
+    "parent_menu": "NA",
+    "description": "NA",
+    "url": "home/home1",
+    "icon": "NA",
+    "menu_order": "1"
+  },
+  {
+    "id": "002",
+    "menu_code": "MU002",
+    "menu_name": "Home",
+    "parent_menu": "NA",
+    "description": "NA",
+    "url": "home/home1",
+    "icon": "NA",
+    "menu_order": "1"
+  },
+  {
+    "id": "003",
+    "menu_code": "MU003",
+    "menu_name": "Home",
+    "parent_menu": "NA",
+    "description": "NA",
+    "url": "home/home1",
+    "icon": "NA",
+    "menu_order": "1"
+  },
+  {
+    "id": "004",
+    "menu_code": "MU004",
+    "menu_name": "Home",
+    "parent_menu": "NA",
+    "description": "NA",
+    "url": "home/home1",
+    "icon": "NA",
+    "menu_order": "1"
+  }
+]
