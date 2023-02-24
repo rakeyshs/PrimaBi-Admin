@@ -1,7 +1,0 @@
-{
-  "/api/*": {
-    "target": "https://api.primabi.co/",
-    "secure": false,
-    "logLevel": "debug"
-  }
-}
