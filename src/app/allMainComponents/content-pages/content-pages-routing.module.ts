@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { Page404Component } from "src/app/authentication/page404/page404.component";
 import { AddPagesComponent } from "./add-pages/add-pages.component";
 import { PagesDetailComponent } from "./pages-detail/pages-detail.component";
+import { ViewPageComponent } from "./view-page/view-page.component";
 
 const routes: Routes = [
   {
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: "pages-details",
     component: PagesDetailComponent,
+  },
+  {
+    path: ":keyword",
+    component: ViewPageComponent,
   },
 ];
 

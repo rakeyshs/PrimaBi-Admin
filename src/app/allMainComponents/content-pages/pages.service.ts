@@ -74,7 +74,7 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
           icon: "success",
           title: "Your pages is added Successfully",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 3000,
         });
       },
       (err: HttpErrorResponse) => {
@@ -97,5 +97,9 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
     }
 
     return this.http.post(this.API_URL + "attachment/upload", formData);
+  }
+
+  viewDetails(keyword: any) {
+    return this.http.get(this.API_URL + "content-page/" + keyword);
   }
 }

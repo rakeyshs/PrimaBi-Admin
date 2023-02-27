@@ -25,6 +25,325 @@
             >
               <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="title"
+                      formControlName="title"
+                      aria-describedby=""
+                      placeholder="Title"
+                      required
+                      [class.is-invalid]="
+                        addPagesForm.controls['title'].touched &&
+                        addPagesForm.controls['title'].invalid
+                      "
+                    />
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      addPagesForm.controls['title'].touched &&
+                      addPagesForm.controls['title'].invalid
+                    "
+                  >
+                    Please enter a valid Title
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <div class="mb-3">
+                    <label for="keyword" class="form-label">Keyword</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="keyword"
+                      formControlName="keyword"
+                      placeholder="Keyword"
+                      required
+                      [class.is-invalid]="
+                        addPagesForm.controls['keyword'].touched &&
+                        addPagesForm.controls['keyword'].invalid
+                      "
+                    />
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      addPagesForm.controls['keyword'].touched &&
+                      addPagesForm.controls['keyword'].invalid
+                    "
+                  >
+                    Please enter a valid Keyword
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <div class="mb-3">
+                    <label for="pptUpload" class="form-label">PPT Upload</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="pptUpload"
+                      formControlName="pptUpload"
+                      aria-describedby=""
+                      (change)="getpptUploadPath($event)"
+                      placeholder="Title"
+                      required
+                      [class.is-invalid]="
+                        addPagesForm.controls['pptUpload'].touched &&
+                        addPagesForm.controls['pptUpload'].invalid
+                      "
+                    />
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      addPagesForm.controls['pptUpload'].touched &&
+                      addPagesForm.controls['pptUpload'].invalid
+                    "
+                  >
+                    Please choose PPT
+                  </div>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <div class="mb-3">
+                    <label for="videoImageUpload" class="form-label"
+                      >Video Image</label
+                    >
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="videoImageUpload"
+                      formControlName="videoImageUpload"
+                      placeholder="videoImageUpload"
+                      (change)="getvideoImagePath($event)"
+                      required
+                      [class.is-invalid]="
+                        addPagesForm.controls['videoImageUpload'].touched &&
+                        addPagesForm.controls['videoImageUpload'].invalid
+                      "
+                    />
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      addPagesForm.controls['videoImageUpload'].touched &&
+                      addPagesForm.controls['videoImageUpload'].invalid
+                    "
+                  >
+                    Please choose Video Image
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div class="mb-3">
+                    <label for="snapshot" class="form-label">Snapshot</label>
+                    <input
+                      type="file"
+                      class="form-control"
+                      id="snapshot"
+                      formControlName="snapshot"
+                      aria-describedby=""
+                      placeholder="Enter video URL "
+                      (change)="getsnapShotPath($event)"
+                      required
+                      [class.is-invalid]="
+                        addPagesForm.controls['snapshot'].touched &&
+                        addPagesForm.controls['snapshot'].invalid
+                      "
+                    />
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      addPagesForm.controls['snapshot'].touched &&
+                      addPagesForm.controls['snapshot'].invalid
+                    "
+                  >
+                    Please Choose Snapshot Image
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div class="mb-3">
+                    <label for="videoURL" class="form-label">Video URL</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="videoURL"
+                      formControlName="videoURL"
+                      aria-describedby=""
+                      placeholder="Enter video URL "
+                      required
+                      [class.is-invalid]="
+                        addPagesForm.controls['videoURL'].touched &&
+                        addPagesForm.controls['videoURL'].invalid
+                      "
+                    />
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      addPagesForm.controls['videoURL'].touched &&
+                      addPagesForm.controls['videoURL'].invalid
+                    "
+                  >
+                    Please enter a Video URL
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div class="mb-3">
+                    <label for="descriptions" class="form-label"
+                      >Description</label
+                    >
+
+                    <textarea
+                      name=""
+                      id="descriptions"
+                      cols="30"
+                      rows="4"
+                      class="form-control"
+                      formControlName="descriptions"
+                      placeholder="Description "
+                      required
+                      [class.is-invalid]="
+                        addPagesForm.controls['descriptions'].touched &&
+                        addPagesForm.controls['descriptions'].invalid
+                      "
+                    ></textarea>
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      addPagesForm.controls['descriptions'].touched &&
+                      addPagesForm.controls['descriptions'].invalid
+                    "
+                  >
+                    Please enter a Description
+                  </div>
+                </div>
+              </div>
+
+              <hr />
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div class="mb-3">
+                    <label for="heading" class="form-label">Heading</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="heading"
+                      formControlName="heading"
+                      aria-describedby=""
+                      placeholder="Enter Heading"
+                      [class.is-invalid]="
+                        addPagesForm.controls['heading'].touched &&
+                        addPagesForm.controls['heading'].invalid
+                      "
+                    />
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      addPagesForm.controls['heading'].touched &&
+                      addPagesForm.controls['heading'].invalid
+                    "
+                  >
+                    Please enter a valid heading
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-label>Description</mat-label>
+                  <ckeditor
+                    [editor]="Editor"
+                    formControlName="description"
+                  ></ckeditor>
+                </div>
+              </div>
+
+              <div class="col-sm-10" align="right">
+                <button
+                  class="btn-space"
+                  mat-raised-button
+                  (click)="addCapacity()"
+                  color="primary"
+                >
+                  Add Information
+                </button>
+              </div>
+
+              <table
+                class="table table-bordered table-striped mb-0"
+                id="datatable-default"
+                *ngIf="isTableVisible"
+              >
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Heading</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let subPages of subPageList; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ subPages.heading }}</td>
+                    <td>{{ subPages.description }}</td>
+
+                    <td class="actions">
+                      <a
+                        title="Delete Capacity"
+                        (click)="deleteCapacity(platCapacity)"
+                        class="delete-row"
+                        ><i class="far fa-trash-alt"></i
+                      ></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <hr />
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button
+                    class="btn-space"
+                    [disabled]="!addPagesForm.valid"
+                    mat-raised-button
+                    color="primary"
+                  >
+                    Submit
+                  </button>
+                  <button type="button" mat-button>Cancel</button>
+                </div>
+              </div>
+            </form>
+
+            <!-- <form
+              class="m-4"
+              class="register-form m-4"
+              [formGroup]="addPagesForm"
+              (ngSubmit)="onAddPagesForm()"
+            >
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field
                     class="example-full-width"
                     appearance="outline"
@@ -265,7 +584,7 @@
                   <button type="button" mat-button>Cancel</button>
                 </div>
               </div>
-            </form>
+            </form> -->
           </div>
         </div>
       </div>

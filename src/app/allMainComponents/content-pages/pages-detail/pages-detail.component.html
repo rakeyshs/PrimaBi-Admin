@@ -42,7 +42,7 @@
                             <button
                               mat-mini-fab
                               color="primary"
-                              (click)="addNew()"
+                              routerLink="/content-pages/add-pages"
                             >
                               <mat-icon class="col-white">add</mat-icon>
                             </button>
@@ -137,27 +137,13 @@
                       *matHeaderCellDef
                       [ngClass]="'tbl-col-width-per-7'"
                     >
-                      <mat-checkbox
-                        (change)="$event ? masterToggle() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="
-                          selection.hasValue() && !isAllSelected()
-                        "
-                        [ngClass]="'tbl-checkbox'"
-                      >
-                      </mat-checkbox>
+                      Sr.No.
                     </mat-header-cell>
                     <mat-cell
-                      *matCellDef="let row"
+                      *matCellDef="let row; let i = index"
                       [ngClass]="'tbl-col-width-per-7'"
                     >
-                      <mat-checkbox
-                        (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)"
-                        [ngClass]="'tbl-checkbox'"
-                      >
-                      </mat-checkbox>
+                      {{ i + 1 }}
                     </mat-cell>
                   </ng-container>
                   <!-- ID Column -->
@@ -188,7 +174,7 @@
                       *matHeaderCellDef
                       mat-sort-header
                       [ngClass]="'tbl-col'"
-                      >keyword
+                      >Keyword
                     </mat-header-cell>
                     <mat-cell
                       *matCellDef="let row"
@@ -204,7 +190,7 @@
                       *matHeaderCellDef
                       mat-sort-header
                       [ngClass]="'tbl-col'"
-                      >ppTpath
+                      >PPT Path
                     </mat-header-cell>
                     <mat-cell
                       *matCellDef="let row"
@@ -220,7 +206,7 @@
                       *matHeaderCellDef
                       mat-sort-header
                       [ngClass]="'tbl-col'"
-                      >videoImage
+                      >Video Image
                     </mat-header-cell>
                     <mat-cell
                       *matCellDef="let row"
@@ -236,7 +222,7 @@
                       *matHeaderCellDef
                       mat-sort-header
                       [ngClass]="'tbl-col'"
-                      >videoURL
+                      >Video URL
                     </mat-header-cell>
                     <mat-cell
                       *matCellDef="let row"
@@ -252,7 +238,7 @@
                       *matHeaderCellDef
                       mat-sort-header
                       [ngClass]="'tbl-col'"
-                      >description
+                      >Description
                     </mat-header-cell>
                     <mat-cell
                       *matCellDef="let row"
@@ -268,7 +254,7 @@
                       *matHeaderCellDef
                       mat-sort-header
                       [ngClass]="'tbl-col'"
-                      >snapshot
+                      >Snapshot
                     </mat-header-cell>
                     <mat-cell
                       *matCellDef="let row"
@@ -297,6 +283,20 @@
                           [class]="'tbl-fav-edit'"
                         ></app-feather-icons>
                       </button>
+
+                      <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="$event.stopPropagation()"
+                        routerLink="/content-pages/{{ row.keyword }}"
+                        class="tbl-action-btn"
+                      >
+                        <app-feather-icons
+                          [icon]="'eye'"
+                          [class]="'tbl-fav-eye'"
+                        ></app-feather-icons>
+                      </button>
+
                       <button
                         mat-icon-button
                         color="accent"

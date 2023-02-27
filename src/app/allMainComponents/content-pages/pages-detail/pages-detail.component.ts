@@ -32,11 +32,12 @@ export class PagesDetailComponent
 {
   displayedColumns = [
     "select",
+    // "srno",
     "title",
     "ppTpath",
     "videoImage",
     "videoURL",
-    "description",
+    // "description",
     "snapshot",
     // "menu_order",
     // "gender",
@@ -171,6 +172,7 @@ export class PagesDetailComponent
       }
     });
   }
+
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }

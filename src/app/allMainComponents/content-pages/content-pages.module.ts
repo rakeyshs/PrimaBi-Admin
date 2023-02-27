@@ -39,11 +39,18 @@ import { AddPagesComponent } from "./add-pages/add-pages.component";
 import { PagesDetailComponent } from "./pages-detail/pages-detail.component";
 import { HttpClient, HttpClientModule } from "@angular/common/http";
 import { PagesService } from "./pages.service";
-import { DeleteDialogComponent } from './pages-detail/dialogs/delete-dialog/delete-dialog.component';
-import { FormDialogComponent } from './pages-detail/dialogs/form-dialog/form-dialog.component';
+import { DeleteDialogComponent } from "./pages-detail/dialogs/delete-dialog/delete-dialog.component";
+import { FormDialogComponent } from "./pages-detail/dialogs/form-dialog/form-dialog.component";
+import { ViewPageComponent } from "./view-page/view-page.component";
 
 @NgModule({
-  declarations: [AddPagesComponent, PagesDetailComponent, DeleteDialogComponent, FormDialogComponent],
+  declarations: [
+    AddPagesComponent,
+    PagesDetailComponent,
+    DeleteDialogComponent,
+    FormDialogComponent,
+    ViewPageComponent,
+  ],
   imports: [
     CommonModule,
     ContentPagesRoutingModule,
