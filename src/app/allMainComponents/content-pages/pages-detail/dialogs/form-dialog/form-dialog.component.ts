@@ -1,34 +1,33 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Component, Inject } from "@angular/core";
-import { MenuSubMenuService } from "../../menu-sub-menu.service";
+import { PagesService } from "../../../pages.service";
 import {
   UntypedFormControl,
   Validators,
   UntypedFormGroup,
   UntypedFormBuilder,
 } from "@angular/forms";
-import { MenuSubMenuModel } from "../../menu-sub-menu.model";
+
 import { MAT_DATE_LOCALE } from "@angular/material/core";
 import { formatDate } from "@angular/common";
-import Swal from "sweetalert2";
+import { addPagesModle } from "../../../pages.modle";
 
 @Component({
-  selector: "app-form-dialog",
-  templateUrl: "./form-dialog.component.html",
-  styleUrls: ["./form-dialog.component.sass"],
-  providers: [{ provide: MAT_DATE_LOCALE, useValue: "en-GB" }],
+  selector: 'app-form-dialog',
+  templateUrl: './form-dialog.component.html',
+  styleUrls: ['./form-dialog.component.sass']
 })
 export class FormDialogComponent {
   action: string;
   actionData: string;
   dialogTitle: string;
   parentOption: string;
+  advanceTable:addPagesModle;
   advanceTableForm: UntypedFormGroup;
-  advanceTable: MenuSubMenuModel;
   constructor(
     public dialogRef: MatDialogRef<FormDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public advanceTableService: MenuSubMenuService,
+    public advanceTableService: PagesService,
     private fb: UntypedFormBuilder
   ) {
     // Set the defaults
@@ -37,11 +36,11 @@ export class FormDialogComponent {
     this.parentOption = this.actionData == "edit" ? "Parent" : "Make Parent";
 
     if (this.action === "edit") {
-      this.dialogTitle = data.advanceTable.menuName;
+      this.dialogTitle = data.advanceTable.title;
       this.advanceTable = data.advanceTable;
     } else {
       this.dialogTitle = "New Record";
-      this.advanceTable = new MenuSubMenuModel({});
+      // this.advanceTable = new addPagesModle({});
     }
     this.advanceTableForm = this.createContactForm();
   }
@@ -69,13 +68,13 @@ export class FormDialogComponent {
   }
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
-      menuId: [this.advanceTable.menuId],
-      menuName: [this.advanceTable.menuName],
-      menuDescription: [this.advanceTable.menuDescription],
-      parentId: [this.advanceTable.parentId, [Validators.required]],
-      sequenceNo: [this.advanceTable.sequenceNo, [Validators.required]],
-      url: [this.advanceTable.url, [Validators.required]],
-      icon: [this.advanceTable.icon, [Validators.required]],
+      title: [this.advanceTable.title],
+      keyword: [this.advanceTable.keyword],
+      description: [this.advanceTable.description],
+      ppTpath: [this.advanceTable.ppTpath, [Validators.required]],
+      videoImage: [this.advanceTable.videoImage, [Validators.required]],
+      videoURL: [this.advanceTable.videoURL, [Validators.required]],
+      snapshot: [this.advanceTable.snapshot, [Validators.required]],
     });
   }
   submit() {
@@ -86,13 +85,14 @@ export class FormDialogComponent {
   }
   public confirmAdd(): void {
     if (this.actionData === "edit") {
-      this.advanceTableService.updateAdvanceTable(
+      this.advanceTableService.updateAdvanceTable1(
         this.advanceTableForm.getRawValue()
       );
     } else {
-      this.advanceTableService.addAdvanceTable(
+      this.advanceTableService.addAdvanceTable1(
         this.advanceTableForm.getRawValue()
       );
     }
   }
 }
+

@@ -9,9 +9,11 @@ import {
 
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
+import Swal from "sweetalert2";
 
 import { addPagesModle } from "../pages.modle";
 import { subPages } from "../sub-pages.modle";
+import { PagesService } from "../pages.service";
 
 @Component({
   selector: "app-add-pages",
@@ -24,10 +26,13 @@ export class AddPagesComponent implements OnInit {
   onChange: Function;
 
   pptUploadPath: string[] = [];
+  pptPath: any;
   videoImagePath: string[] = [];
+  vdoImgPath: any;
   snapShotPath: string[] = [];
+  snapShotPaths: any;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private pagesServe: PagesService) {}
 
   hide = true;
   isTableVisible = false;
@@ -35,11 +40,11 @@ export class AddPagesComponent implements OnInit {
   addPagesForm = this.fb.group({
     title: ["", [Validators.required]],
     keyword: ["", [Validators.required]],
-    pptUpload: [null, [Validators.required]],
-    videoImageUpload: [null, [Validators.required]],
+    pptUpload: ["", [Validators.required]],
+    videoImageUpload: ["", [Validators.required]],
     videoURL: ["", [Validators.required]],
     descriptions: ["", [Validators.required]],
-    snapshot: [null, [Validators.required]],
+    snapshot: ["", [Validators.required]],
     heading: [""],
     description: [""],
   });
@@ -48,15 +53,18 @@ export class AddPagesComponent implements OnInit {
   customForm: UntypedFormGroup;
   subPageList: subPages[] = [];
 
+  pptData: any;
+
   subPagesData: subPages = new subPages("", "");
   addPagesData: addPagesModle = new addPagesModle(
+    0,
     "",
     "",
-    null,
-    null,
     "",
     "",
-    null,
+    "",
+    "",
+    "",
     this.subPageList
   );
 
@@ -64,16 +72,29 @@ export class AddPagesComponent implements OnInit {
   onAddPagesForm() {
     this.addPagesData.title = this.addPagesForm.value.title;
     this.addPagesData.keyword = this.addPagesForm.value.keyword;
-    this.addPagesData.pptUpload = this.addPagesForm.value.pptUpload;
-    this.addPagesData.videoImageUpload =
-      this.addPagesForm.value.videoImageUpload;
+    this.addPagesData.ppTpath = this.selectFilesPath1.response;
+    this.addPagesData.videoImage = this.selectFilesPath2.response;
     this.addPagesData.videoURL = this.addPagesForm.value.videoURL;
-    this.addPagesData.descriptions = this.addPagesForm.value.descriptions;
-    this.addPagesData.snapshot = this.addPagesForm.value.snapshot;
+    this.addPagesData.description = this.addPagesForm.value.descriptions;
+    this.addPagesData.snapshot = this.selectFilesPath3.response;
     this.addPagesData.subPages = this.subPageList;
 
     console.log("Form Value", this.addPagesData);
     // this.addPagesForm.reset();
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Add it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.pagesServe.addContentPage(this.addPagesData);
+      }
+    });
   }
 
   ngOnInit(): void {}
@@ -109,11 +130,79 @@ export class AddPagesComponent implements OnInit {
   }
 
   // for files path
+
+
+  //file uploading
+
+  selectFiles1:FileList|any;
+  selectFiles2:FileList|any;
+  selectFiles3:FileList|any;
+  selectFilesPath1:any;
+  selectFilesPath2:any;
+  selectFilesPath3:any;
+  getFileDetails1(e:any) {
+   
+
+
+    this.selectFiles1 = e.target.files;
+
+    this.pagesServe.FileAttachmentsUpload(this.selectFiles1).subscribe((ppTpath)=>{
+      console.log(ppTpath);
+
+      this.selectFilesPath1=ppTpath;
+      
+    })
+
+
+
+
+}
+getFileDetails2(e:any) {
+   
+
+
+  this.selectFiles2 = e.target.files;
+  this.pagesServe.FileAttachmentsUpload(this.selectFiles2).subscribe((videoImage)=>{
+    console.log(videoImage);
+    this.selectFilesPath2=videoImage;
+    
+  })
+
+
+}
+getFileDetails3(e:any) {
+   
+
+
+  this.selectFiles3 = e.target.files;
+  this.pagesServe.FileAttachmentsUpload(this.selectFiles3).subscribe((snapshot)=>{
+    console.log(snapshot);
+
+    this.selectFilesPath3=snapshot;
+    
+  })
+
+
+}
+
+
+
+  
+
+
+
   getpptUploadPath(e) {
     this.pptUploadPath = [];
     for (var i = 0; i < e.target.files.length; i++) {
       this.pptUploadPath.push(e.target.files[i]);
     }
+
+    this.pagesServe
+      .FileAttachmentsUpload(this.pptUploadPath)
+      .subscribe((data) => {
+        console.log(data);
+        this.pptPath = data;
+      });
   }
 
   getvideoImagePath(e) {
@@ -121,6 +210,12 @@ export class AddPagesComponent implements OnInit {
     for (var i = 0; i < e.target.files.length; i++) {
       this.videoImagePath.push(e.target.files[i]);
     }
+    this.pagesServe
+      .FileAttachmentsUpload(this.pptUploadPath)
+      .subscribe((data) => {
+        console.log(data);
+        this.vdoImgPath = data;
+      });
   }
 
   getsnapShotPath(e) {
@@ -128,5 +223,11 @@ export class AddPagesComponent implements OnInit {
     for (var i = 0; i < e.target.files.length; i++) {
       this.snapShotPath.push(e.target.files[i]);
     }
+    this.pagesServe
+      .FileAttachmentsUpload(this.pptUploadPath)
+      .subscribe((data) => {
+        console.log(data);
+        this.snapShotPaths = data;
+      });
   }
 }

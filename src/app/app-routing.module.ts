@@ -24,9 +24,6 @@ const routes: Routes = [
           import("./allMainComponents/menu-sub-menu/menu-sub-menu.module").then(
             (m) => m.MenuSubMenuModule
           ),
-        // import("./advance-table/advance-table.module").then(
-        //   (m) => m.AdvanceTableModule
-        // ),
       },
       {
         path: "add-pages",

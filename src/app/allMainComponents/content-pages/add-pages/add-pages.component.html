@@ -23,6 +23,284 @@
               [formGroup]="addPagesForm"
               (ngSubmit)="onAddPagesForm()"
             >
+
+            <div class="row">
+              <!-- first1 -->
+              <div class="col-sm-6">
+                <label class="label">Title</label>
+                <input type="text" class="form-control" name="title" formControlName="title"
+                  placeHolder="title"
+                  [class.is-invalid]="addPagesForm.controls['title'].touched && addPagesForm.controls['title'].invalid">
+  
+                <div class="text-danger" *ngIf="
+                addPagesForm.controls['title'].touched &&
+                addPagesForm.controls['title'].invalid
+                      ">
+                  Please enter a valid Title
+                </div>
+              </div>
+  
+              <!-- second -->
+              <div class="col-sm-6">
+                <label class="label">keyword</label>
+                <input type="text" class="form-control" name="keyword" formControlName="keyword"
+                  placeHolder="keyword"
+                  [class.is-invalid]="addPagesForm.controls['keyword'].touched && addPagesForm.controls['keyword'].invalid">
+  
+                <div class="text-danger" *ngIf="
+                addPagesForm.controls['keyword'].touched &&
+                addPagesForm.controls['keyword'].invalid
+                      ">
+                  Please enter a valid keyword
+                </div>
+              </div>
+  
+  
+      
+            </div>
+
+            
+            <div class="row">
+              <!-- first1 -->
+  
+              <div class="col-sm-6">
+                <label class="label">videoImage</label>
+                <!-- <input type="text" class="form-control" name="snapshot" formControlName="snapshot"
+                  placeHolder="snapshot"
+                  [class.is-invalid]="addPagesForm.controls['snapshot'].touched && addPagesForm.controls['snapshot'].invalid"> -->
+                  <input
+                  class="form-control"
+                  type="file"
+              
+                  formControlName="videoImageUpload"
+                  name=""
+                  id=""
+                  (change)="getFileDetails1($event)"
+      
+    
+                  [class.is-invalid]="
+                  addPagesForm.controls['videoImageUpload'].touched &&
+                  addPagesForm.controls['videoImageUpload'].invalid
+                  "
+                />
+                <div
+                  class="text-danger"
+                  *ngIf="
+                  addPagesForm.controls['videoImageUpload'].touched &&
+                  addPagesForm.controls['videoImageUpload'].invalid
+                  "
+                >
+                  Please select ppTpath file
+                </div>
+              </div>
+        
+                    <!-- first1 -->
+             
+                    <div class="col-sm-6">
+                      <label class="label">ppTpath</label>
+                        <input
+                        class="form-control"
+                        type="file"
+            
+                        formControlName="pptUpload"
+                        name="pptUpload"
+                        id="pptUpload"
+                        (change)="getFileDetails2($event)"
+            
+        
+                        [class.is-invalid]="
+                        addPagesForm.controls['pptUpload'].touched &&
+                        addPagesForm.controls['pptUpload'].invalid
+                        "
+                      />
+                      <div
+                        class="text-danger"
+                        *ngIf="
+                        addPagesForm.controls['pptUpload'].touched &&
+                        addPagesForm.controls['pptUpload'].invalid
+                        "
+                      >
+                        Please select ppTpath file
+                      </div>
+                    </div>
+              
+      
+            </div>
+
+            
+            <div class="row">
+
+
+              <div class="col-sm-6">
+                <label class="label">snapshot</label>
+                <!-- <input type="text" class="form-control" name="snapshot" formControlName="snapshot"
+                  placeHolder="snapshot"
+                  [class.is-invalid]="addPagesForm.controls['snapshot'].touched && addPagesForm.controls['snapshot'].invalid"> -->
+                  <input
+                  class="form-control"
+                  type="file"
+                  [formControl]="addPagesForm.controls['snapshot']"
+                  formControlName="snapshot"
+                  name=""
+                  id=""
+                  (change)="getFileDetails3($event)"
+      
+      
+          
+      
+      
+      
+                  [class.is-invalid]="
+                  addPagesForm.controls['snapshot'].touched &&
+                  addPagesForm.controls['snapshot'].invalid
+                  "
+                />
+                <div
+                  class="text-danger"
+                  *ngIf="
+                  addPagesForm.controls['snapshot'].touched &&
+                  addPagesForm.controls['snapshot'].invalid
+                  "
+                >
+                  Please select Sanpshot file
+                </div>
+              </div>
+        
+  
+              <!-- second -->
+  
+              <div class="col-sm-6">
+                <label class="label">videoURL</label>
+                <input type="email" class="form-control" name="videoURL" formControlName="videoURL" placeHolder="videoURL"
+                  [class.is-invalid]="addPagesForm.controls['videoURL'].touched && addPagesForm.controls['videoURL'].invalid">
+                <div class="text-danger" *ngIf="
+                addPagesForm.controls['videoURL'].touched &&
+                addPagesForm.controls['videoURL'].invalid
+                        ">
+                  Please enter a valid videoURL
+                </div>
+  
+              </div>
+          
+         
+      
+            </div>
+
+            <div class="row">
+              <!-- first1 -->
+           
+              <div class="col-sm-12">
+                <label class="label">Description</label>
+                <textarea class="form-control" name="descriptions" formControlName="descriptions" placeHolder="descriptions"
+                  [class.is-invalid]="addPagesForm.controls['descriptions'].touched && addPagesForm.controls['descriptions'].invalid">
+                  </textarea>
+                <div class="text-danger" *ngIf="
+                addPagesForm.controls['descriptions'].touched &&
+                addPagesForm.controls['descriptions'].invalid
+                        ">
+                  Please enter a valid description
+                </div>
+  
+              </div>
+  
+      
+            </div>
+<!-- new addeed -->
+
+<div class="row">
+  <!-- first1 -->
+  <div class="col-sm-12">
+    <label class="label">Heading</label>
+    <input type="text" class="form-control" name="heading" formControlName="heading"
+      placeHolder="heading"
+      [class.is-invalid]="addPagesForm.controls['heading'].touched && addPagesForm.controls['heading'].invalid">
+
+    <div class="text-danger" *ngIf="
+    addPagesForm.controls['heading'].touched &&
+    addPagesForm.controls['heading'].invalid
+          ">
+      Please enter a valid Heading
+    </div>
+  </div>
+
+
+</div>
+
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+    <mat-label>Description</mat-label>
+    <ckeditor
+    class="ck-editor__editable_inline"
+      [editor]="Editor"
+      formControlName="description"
+    ></ckeditor>
+  </div>
+</div>
+
+<div class="col-sm-10" align="right">
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="addCapacity()"
+  >
+    Add Information</button
+  >&nbsp;
+</div>
+
+<table
+  class="table table-bordered table-striped mb-0"
+  id="datatable-default"
+  *ngIf="isTableVisible"
+>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Heading</th>
+      <th>Description</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let accoArray of subPageList; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ accoArray.heading}}</td>
+      <td>{{ accoArray.description }}</td>
+
+      <td class="actions">
+        <a
+          title="Delete Capacity"
+          (click)="deleteCapacity(platCapacity)"
+          class="delete-row"
+          ><i class="far fa-trash-alt"></i
+        ></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+    <button
+      class="btn-space"
+  
+      mat-raised-button
+      color="primary"
+    >
+      Submit
+    </button>
+    <button type="button" mat-button>Cancel</button>
+  </div>
+</div>
+
+
+
+<!-- new added -->
+  
+<!--   
+
+
               <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-form-field
@@ -61,25 +339,25 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                   <mat-label>PPT Upload</mat-label>
                   <div class="file-drop-area">
-                    <span class="ms-2" *ngIf="pptUploadPath.length == 0">{{
+                    <span class="ms-2" *ngIf="myFiles1.length == 0">{{
                       "Choose file or drag and drop file here"
                     }}</span>
-                    <span class="file-msg" *ngFor="let file of pptUploadPath">
+                    <span class="file-msg" *ngFor="let file of myFiles1">
                       <div class="me-2">{{ file.name }}</div>
                     </span>
                     <input
                       class="file-input"
                       type="file"
-                      formControlName="pptUpload"
+                      formControlName="ppTpath"
                       multiple
-                      (change)="getpptUploadPath($event)"
+                      (change)="getFile1Details($event)"
                       required
                     />
                   </div>
                   <mat-error
                     *ngIf="
-                      addPagesForm.controls['pptUpload'].touched &&
-                      addPagesForm.controls['pptUpload'].invalid
+                      addPagesForm.controls['ppTpath'].touched &&
+                      addPagesForm.controls['ppTpath'].invalid
                     "
                     >PPT File is required</mat-error
                   >
@@ -88,59 +366,29 @@
                   <mat-label>Video Image Upload</mat-label>
 
                   <div class="file-drop-area">
-                    <span class="ms-2" *ngIf="videoImagePath.length == 0">{{
+                    <span class="ms-2" *ngIf="myFiles2.length == 0">{{
                       "Choose file or drag and drop file here"
                     }}</span>
-                    <span class="file-msg" *ngFor="let file of videoImagePath">
+                    <span class="file-msg" *ngFor="let file of myFiles2">
                       <div class="me-2">{{ file.name }}</div>
                     </span>
                     <input
                       class="file-input"
                       type="file"
-                      formControlName="videoImageUpload"
-                      (change)="getvideoImagePath($event)"
+                      formControlName="videoImage"
+                      (change)="getFile2Details($event)"
                       required
                     />
                   </div>
                   <mat-error
                     *ngIf="
-                      addPagesForm.controls['videoImageUpload'].touched &&
-                      addPagesForm.controls['videoImageUpload'].invalid
+                      addPagesForm.controls['videoImage'].touched &&
+                      addPagesForm.controls['videoImage'].invalid
                     "
                     >Video Image is required</mat-error
                   >
                 </div>
               </div>
-
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <mat-label>Snapshot Upload</mat-label>
-
-                  <div class="file-drop-area">
-                    <span class="ms-2" *ngIf="snapShotPath.length == 0">{{
-                      "Choose file or drag and drop file here"
-                    }}</span>
-                    <span class="file-msg" *ngFor="let file of snapShotPath">
-                      <div class="me-2">{{ file.name }}</div>
-                    </span>
-                    <input
-                      class="file-input"
-                      type="file"
-                      formControlName="snapshot"
-                      (change)="getsnapShotPath($event)"
-                      required
-                    />
-                  </div>
-                  <mat-error
-                    *ngIf="
-                      addPagesForm.controls['snapshot'].touched &&
-                      addPagesForm.controls['snapshot'].invalid
-                    "
-                    >Snapshot is required</mat-error
-                  >
-                </div>
-              </div>
-
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <mat-form-field
@@ -158,6 +406,35 @@
                   </mat-form-field>
                 </div>
               </div>
+
+
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <mat-label>snapshot</mat-label>
+
+                <div class="file-drop-area">
+                  <span class="ms-2" *ngIf="myFiles3.length == 0">{{
+                    "Choose file or drag and drop file here"
+                  }}</span>
+                  <span class="file-msg" *ngFor="let file of myFiles3">
+                    <div class="me-2">{{ file.name }}</div>
+                  </span>
+                  <input
+                    class="file-input"
+                    type="file"
+                    formControlName="snapshot"
+                    (change)="getFile3Details($event)"
+                    required
+                  />
+                </div>
+                <mat-error
+                  *ngIf="
+                    addPagesForm.controls['snapshot'].touched &&
+                    addPagesForm.controls['snapshot'].invalid
+                  "
+                  >Snapshot Image is required</mat-error
+                >
+              </div>
+
 
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
@@ -180,7 +457,6 @@
                   </mat-form-field>
                 </div>
               </div>
-
               <hr />
 
               <div class="row">
@@ -192,7 +468,11 @@
                     <mat-label>Heading</mat-label>
                     <input matInput formControlName="heading" />
                     <mat-error
-                      *ngIf="addPagesForm.get('heading').hasError('required')"
+                      *ngIf="
+                        addPagesForm
+                          .get('heading')
+                          .hasError('required')
+                      "
                       >Heading is required</mat-error
                     >
                   </mat-form-field>
@@ -233,10 +513,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let subPages of subPageList; let i = index">
+                  <tr *ngFor="let accoArray of accoArrayLists; let i = index">
                     <td>{{ i + 1 }}</td>
-                    <td>{{ subPages.heading }}</td>
-                    <td>{{ subPages.description }}</td>
+                    <td>{{ accoArray.heading }}</td>
+                    <td>{{ accoArray.description }}</td>
 
                     <td class="actions">
                       <a
@@ -251,12 +531,12 @@
               </table>
 
               <hr />
-
+            
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <button
                     class="btn-space"
-                    [disabled]="!addPagesForm.valid"
+                
                     mat-raised-button
                     color="primary"
                   >
@@ -264,7 +544,7 @@
                   </button>
                   <button type="button" mat-button>Cancel</button>
                 </div>
-              </div>
+              </div> -->
             </form>
           </div>
         </div>

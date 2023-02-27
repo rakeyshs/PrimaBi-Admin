@@ -8,14 +8,15 @@ import {
   HttpHeaders,
 } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+
+import { ApiConstant } from "src/app/API/api-constants";
+
 @Injectable()
 @Injectable({
   providedIn: "root",
 })
 export class MenuSubMenuService extends UnsubscribeOnDestroyAdapter {
-  private readonly API_URL = "assets/data/advanceTable.json";
-
-  url = "https://api.primabi.co/api/v1/";
+  API_URL = ApiConstant.ROOT_URL;
 
   isTblLoading = true;
   dataChange: BehaviorSubject<MenuSubMenuModel[]> = new BehaviorSubject<
@@ -28,7 +29,7 @@ export class MenuSubMenuService extends UnsubscribeOnDestroyAdapter {
   }
 
   get data1() {
-    return this.httpClient.get(this.url + "menu");
+    return this.httpClient.get(this.API_URL + "menu");
   }
   get data(): MenuSubMenuModel[] {
     return this.dataChange.value;
@@ -39,7 +40,7 @@ export class MenuSubMenuService extends UnsubscribeOnDestroyAdapter {
   /** CRUD METHODS */
   getAllAdvanceTables(): void {
     this.subs.sink = this.httpClient
-      .get<MenuSubMenuModel[]>(this.url + "menu")
+      .get<MenuSubMenuModel[]>(this.API_URL + "menu")
       .subscribe(
         (data) => {
           this.isTblLoading = false;
@@ -54,7 +55,7 @@ export class MenuSubMenuService extends UnsubscribeOnDestroyAdapter {
   addAdvanceTable(advanceTable: MenuSubMenuModel): void {
     // this.dialogData = advanceTable;
 
-    this.httpClient.post(this.url + "menu/add", advanceTable).subscribe(
+    this.httpClient.post(this.API_URL + "menu/add", advanceTable).subscribe(
       (data) => {
         this.dialogData = advanceTable;
       },
@@ -67,7 +68,7 @@ export class MenuSubMenuService extends UnsubscribeOnDestroyAdapter {
     this.dialogData = advanceTable;
 
     this.httpClient
-      .post(this.url + "menu/update/" + advanceTable.menuId, advanceTable)
+      .post(this.API_URL + "menu/update/" + advanceTable.menuId, advanceTable)
       .subscribe(
         (data) => {
           this.dialogData = advanceTable;
@@ -78,15 +79,17 @@ export class MenuSubMenuService extends UnsubscribeOnDestroyAdapter {
       );
   }
   deleteAdvanceTable(id: number) {
-    return this.httpClient.post(this.url + "menu/delete/" + id, id).subscribe(
-      (data) => {},
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
-    // return this.httpClient.delete(this.url + "menu/" + id).subscribe(
+    return this.httpClient
+      .post(this.API_URL + "menu/delete/" + id, id)
+      .subscribe(
+        (data) => {},
+        (err: HttpErrorResponse) => {
+          // error code here
+        }
+      );
+    // return this.httpClient.delete(this.API_URL + "menu/" + id).subscribe(
     //   (data) => {
-    //     alert(this.url + "menu" + id);
+    //     alert(this.API_URL + "menu" + id);
     //     console.log(id);
     //   },
     //   (err: HttpErrorResponse) => {

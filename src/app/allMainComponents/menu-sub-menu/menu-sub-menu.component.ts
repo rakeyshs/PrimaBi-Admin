@@ -17,6 +17,7 @@ import { MatMenu, MatMenuTrigger } from "@angular/material/menu";
 import { SelectionModel } from "@angular/cdk/collections";
 
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-menu-sub-menu",

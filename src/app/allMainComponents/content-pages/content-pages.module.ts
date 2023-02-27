@@ -37,9 +37,14 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { SharedModule } from "src/app/shared/shared.module";
 import { AddPagesComponent } from "./add-pages/add-pages.component";
 import { PagesDetailComponent } from "./pages-detail/pages-detail.component";
+import { HttpClient, HttpClientModule } from "@angular/common/http";
+import { PagesService } from "./pages.service";
+import { DeleteDialogComponent } from './pages-detail/dialogs/delete-dialog/delete-dialog.component';
+import { FormDialogComponent } from './pages-detail/dialogs/form-dialog/form-dialog.component';
+import { UserViewComponent } from './pages-detail/dialogs/user-view/user-view.component';
 
 @NgModule({
-  declarations: [AddPagesComponent, PagesDetailComponent],
+  declarations: [AddPagesComponent, PagesDetailComponent, DeleteDialogComponent, FormDialogComponent, UserViewComponent],
   imports: [
     CommonModule,
     ContentPagesRoutingModule,
@@ -78,6 +83,8 @@ import { PagesDetailComponent } from "./pages-detail/pages-detail.component";
     MatTableExporterModule,
     MatProgressSpinnerModule,
     SharedModule,
+    HttpClientModule,
   ],
+  providers: [PagesService],
 })
 export class ContentPagesModule {}
