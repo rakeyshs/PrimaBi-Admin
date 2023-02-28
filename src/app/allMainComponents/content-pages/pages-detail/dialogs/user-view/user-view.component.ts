@@ -4,7 +4,6 @@ import { addPagesModle } from '../../../pages.modle';
 import { PagesService } from '../../../pages.service';
 import { subPages } from '../../../sub-pages.modle';
 
-
 @Component({
   selector: 'app-user-view',
   templateUrl: './user-view.component.html',
@@ -19,6 +18,8 @@ export class UserViewComponent {
   }
 
   ngOnInit(): void {
+
+    // get adminview data
 
     this.userService.userview(this.router.snapshot.params["keyword"]).subscribe({
       next:(data) =>{

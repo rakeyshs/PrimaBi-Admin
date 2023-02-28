@@ -8,7 +8,6 @@ import {
 } from "@angular/forms";
 
 import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from "@angular/forms";
 import Swal from "sweetalert2";
 
 import { addPagesModle } from "../pages.modle";
@@ -43,7 +42,7 @@ export class AddPagesComponent implements OnInit {
     pptUpload: ["", [Validators.required]],
     videoImageUpload: ["", [Validators.required]],
     videoURL: ["", [Validators.required]],
-    descriptions: ["", [Validators.required]],
+    descriptions: [""],
     snapshot: ["", [Validators.required]],
     heading: [""],
     description: [""],
@@ -78,7 +77,6 @@ export class AddPagesComponent implements OnInit {
     this.addPagesData.description = this.addPagesForm.value.descriptions;
     this.addPagesData.snapshot = this.selectFilesPath3.response;
     this.addPagesData.subPages = this.subPageList;
-
     console.log("Form Value", this.addPagesData);
     // this.addPagesForm.reset();
 
@@ -98,6 +96,8 @@ export class AddPagesComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  //heading and description function
 
   addCapacity() {
     if (
@@ -129,105 +129,52 @@ export class AddPagesComponent implements OnInit {
     }
   }
 
-  // for files path
-
-
   //file uploading
-
   selectFiles1:FileList|any;
   selectFiles2:FileList|any;
   selectFiles3:FileList|any;
   selectFilesPath1:any;
   selectFilesPath2:any;
   selectFilesPath3:any;
+
+  //pptPath upload
   getFileDetails1(e:any) {
    
-
-
     this.selectFiles1 = e.target.files;
 
-    this.pagesServe.FileAttachmentsUpload(this.selectFiles1).subscribe((ppTpath)=>{
+    this.pagesServe.fileUpload(this.selectFiles1).subscribe((ppTpath)=>{
       console.log(ppTpath);
 
       this.selectFilesPath1=ppTpath;
       
     })
 
-
-
-
 }
+//videoupload
+
 getFileDetails2(e:any) {
    
-
-
   this.selectFiles2 = e.target.files;
-  this.pagesServe.FileAttachmentsUpload(this.selectFiles2).subscribe((videoImage)=>{
+  this.pagesServe.fileUpload(this.selectFiles2).subscribe((videoImage)=>{
     console.log(videoImage);
+
     this.selectFilesPath2=videoImage;
     
   })
 
 
+  //snapshot upload
+
 }
 getFileDetails3(e:any) {
    
-
-
   this.selectFiles3 = e.target.files;
-  this.pagesServe.FileAttachmentsUpload(this.selectFiles3).subscribe((snapshot)=>{
+  this.pagesServe.fileUpload(this.selectFiles3).subscribe((snapshot)=>{
     console.log(snapshot);
-
     this.selectFilesPath3=snapshot;
     
   })
 
 
 }
-
-
-
-  
-
-
-
-  getpptUploadPath(e) {
-    this.pptUploadPath = [];
-    for (var i = 0; i < e.target.files.length; i++) {
-      this.pptUploadPath.push(e.target.files[i]);
-    }
-
-    this.pagesServe
-      .FileAttachmentsUpload(this.pptUploadPath)
-      .subscribe((data) => {
-        console.log(data);
-        this.pptPath = data;
-      });
-  }
-
-  getvideoImagePath(e) {
-    this.videoImagePath = [];
-    for (var i = 0; i < e.target.files.length; i++) {
-      this.videoImagePath.push(e.target.files[i]);
-    }
-    this.pagesServe
-      .FileAttachmentsUpload(this.pptUploadPath)
-      .subscribe((data) => {
-        console.log(data);
-        this.vdoImgPath = data;
-      });
-  }
-
-  getsnapShotPath(e) {
-    this.snapShotPath = [];
-    for (var i = 0; i < e.target.files.length; i++) {
-      this.snapShotPath.push(e.target.files[i]);
-    }
-    this.pagesServe
-      .FileAttachmentsUpload(this.pptUploadPath)
-      .subscribe((data) => {
-        console.log(data);
-        this.snapShotPaths = data;
-      });
-  }
 }

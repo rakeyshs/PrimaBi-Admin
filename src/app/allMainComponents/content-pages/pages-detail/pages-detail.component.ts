@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -79,34 +78,8 @@ export class PagesDetailComponent
   refresh() {
     this.loadData();
   }
-  addNew() {
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(FormDialogComponent, {
-      data: {
-        advanceTable: this.advanceTable,
-        action: "add",
-      },
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
-        this.loadData();
-        // this.refreshTable();
+  //edit content-page
 
-        this.showNotification(
-          "snackbar-success",
-          "Add Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      }
-    });
-  }
   editCall(row) {
     this.pageId = row.pageId;
     let tempDirection;
@@ -142,6 +115,8 @@ export class PagesDetailComponent
       }
     });
   }
+
+  // delete content-page
   deleteItem(row) {
     this.pageId = row.pageId;
     // alert(this.menuId);
@@ -173,6 +148,8 @@ export class PagesDetailComponent
       }
     });
   }
+
+  
   private refreshTable() {
     this.paginator._changePageSize(this.paginator.pageSize);
   }

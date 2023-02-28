@@ -17,6 +17,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 })
 export class PagesService extends UnsubscribeOnDestroyAdapter {
   API_URL = ApiConstant.ROOT_URL;
+  url="https://api.primabi.co/";
   isTblLoading = true;
   dataChange: BehaviorSubject<addPagesModle[]> = new BehaviorSubject<
     addPagesModle[]
@@ -44,6 +45,19 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
   }
 
   // attachment/upload
+
+
+  fileUpload(data:any)
+{
+
+  let formData = new FormData();
+
+ formData.append("file",data[0]);
+
+  return this.http.post(this.API_URL +'attachment/upload',formData) ;
+
+
+}
 
   getContentPageData(): void {
     this.subs.sink = this.http
@@ -94,8 +108,11 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
 
     return this.http.post(this.API_URL + "", formData);
   }
-  deleteAdvanceTable1(id: number) {
-    return this.http.post(this.API_URL + "" + id, id).subscribe(
+
+
+//delete api calling
+  deleteAdvanceTable1(pageId: number) {
+    return this.http.post(this.url + "delete/" +pageId,pageId).subscribe(
       (data) => {},
       (err: HttpErrorResponse) => {
         // error code here
