@@ -102,4 +102,23 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
   viewDetails(keyword: any) {
     return this.http.get(this.API_URL + "content-page/" + keyword);
   }
+
+  deleteAdvanceTable(id: number) {
+    return this.http.post("https://api.primabi.co/delete/" + id, id).subscribe(
+      (data) => {},
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+  }
+
+  isKeywordUnique(keyword: any) {
+    return this.http.get(
+      this.API_URL + "content-page/is-unique-keyword/" + keyword
+    );
+  }
+
+  getSubPages(id: number) {
+    return this.http.get(this.API_URL + "content-page/get-subpage/" + id);
+  }
 }

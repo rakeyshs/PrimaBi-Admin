@@ -42,6 +42,8 @@ import { PagesService } from "./pages.service";
 import { DeleteDialogComponent } from "./pages-detail/dialogs/delete-dialog/delete-dialog.component";
 import { FormDialogComponent } from "./pages-detail/dialogs/form-dialog/form-dialog.component";
 import { ViewPageComponent } from "./view-page/view-page.component";
+import { EditDialogComponent } from "./pages-detail/dialogs/edit-dialog/edit-dialog.component";
+import { EditSubPageComponent } from './edit-sub-page/edit-sub-page.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { ViewPageComponent } from "./view-page/view-page.component";
     DeleteDialogComponent,
     FormDialogComponent,
     ViewPageComponent,
+    EditDialogComponent,
+    EditSubPageComponent,
   ],
   imports: [
     CommonModule,

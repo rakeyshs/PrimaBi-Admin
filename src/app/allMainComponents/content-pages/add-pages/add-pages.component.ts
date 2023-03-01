@@ -31,6 +31,9 @@ export class AddPagesComponent implements OnInit {
   vdoImgPath: any;
   snapShotPath: string[] = [];
   snapShotPaths: any;
+  attachmentURL = "https://api.primabi.co/uploads/";
+
+  //
 
   constructor(private fb: FormBuilder, private pagesServe: PagesService) {}
 
@@ -68,15 +71,18 @@ export class AddPagesComponent implements OnInit {
     this.subPageList
   );
 
-  //
+  // for adding the content page function
   onAddPagesForm() {
     this.addPagesData.title = this.addPagesForm.value.title;
     this.addPagesData.keyword = this.addPagesForm.value.keyword;
-    this.addPagesData.ppTpath = this.pptPath.response;
-    this.addPagesData.videoImage = this.vdoImgPath.response;
+    this.addPagesData.ppTpath =
+      this.attachmentURL + this.pptPath.response.slice(8);
+    this.addPagesData.videoImage =
+      this.attachmentURL + this.vdoImgPath.response.slice(8);
     this.addPagesData.videoURL = this.addPagesForm.value.videoURL;
     this.addPagesData.description = this.addPagesForm.value.descriptions;
-    this.addPagesData.snapshot = this.snapShotPaths.response;
+    this.addPagesData.snapshot =
+      this.attachmentURL + this.snapShotPaths.response.slice(8);
     this.addPagesData.subPages = this.subPageList;
 
     console.log("Form Value", this.addPagesData);
@@ -84,7 +90,7 @@ export class AddPagesComponent implements OnInit {
 
     Swal.fire({
       title: "Are you sure?",
-      text: "",
+      text: "Are you sure you want to add this new page",
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -97,9 +103,9 @@ export class AddPagesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  //  adding sub pages function
 
-  addCapacity() {
+  addSubPages() {
     if (
       this.addPagesForm.value.heading != "" &&
       this.addPagesForm.value.description != ""
@@ -118,7 +124,7 @@ export class AddPagesComponent implements OnInit {
     }
   }
 
-  deleteCapacity(plantCapacity: subPages) {
+  deleteSubPages(plantCapacity: subPages) {
     var index = this.subPageList.indexOf(plantCapacity);
     this.subPageList.splice(index, 1);
 
@@ -150,7 +156,7 @@ export class AddPagesComponent implements OnInit {
       this.videoImagePath.push(e.target.files[i]);
     }
     this.pagesServe
-      .FileAttachmentsUpload(this.pptUploadPath)
+      .FileAttachmentsUpload(this.videoImagePath)
       .subscribe((data) => {
         console.log(data);
         this.vdoImgPath = data;
@@ -163,10 +169,30 @@ export class AddPagesComponent implements OnInit {
       this.snapShotPath.push(e.target.files[i]);
     }
     this.pagesServe
-      .FileAttachmentsUpload(this.pptUploadPath)
+      .FileAttachmentsUpload(this.snapShotPath)
       .subscribe((data) => {
         console.log(data);
         this.snapShotPaths = data;
       });
+  }
+
+  // this.addPagesData.keyword
+  tempKeyword = this.addPagesForm.value.keyword;
+  tempData: any;
+
+  ngOnInit() {}
+
+  keywordCheck(keyword: any) {
+    this.pagesServe.isKeywordUnique(keyword).subscribe((data) => {
+      this.tempData = data;
+      if (this.tempData.response == true) {
+        Swal.fire({
+          icon: "error",
+          title: "Keyword is already exists!",
+          text: "",
+        });
+        this.addPagesForm.controls["keyword"].reset();
+      }
+    });
   }
 }

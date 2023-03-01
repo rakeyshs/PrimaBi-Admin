@@ -19,11 +19,12 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { PagesService } from "../pages.service";
 import { addPagesModle } from "../pages.modle";
 import { Router } from "@angular/router";
+import { EditDialogComponent } from "./dialogs/edit-dialog/edit-dialog.component";
 
 @Component({
   selector: "app-pages-detail",
   templateUrl: "./pages-detail.component.html",
-  styleUrls: ["./pages-detail.component.sass"],
+  styleUrls: ["./pages-detail.component.scss"],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: "en-GB" }],
 })
 export class PagesDetailComponent
@@ -32,19 +33,12 @@ export class PagesDetailComponent
 {
   displayedColumns = [
     "select",
-    // "srno",
     "title",
+    "keyword",
     "ppTpath",
     "videoImage",
     "videoURL",
-    // "description",
     "snapshot",
-    // "menu_order",
-    // "gender",
-    // "bDate",
-    // "mobile",
-    // "address",
-    // "country",
     "actions",
   ];
   exampleDatabase: PagesService | null;
@@ -71,9 +65,7 @@ export class PagesDetailComponent
   ngOnInit() {
     this.loadData();
 
-    this.advanceTableService.data1.subscribe((data) => {
-      console.warn(data);
-    });
+    this.advanceTableService.data1.subscribe((data) => {});
   }
   refresh() {
     this.loadData();
@@ -114,7 +106,43 @@ export class PagesDetailComponent
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(FormDialogComponent, {
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      data: {
+        advanceTable: row,
+        action: "edit",
+      },
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
+      if (result === 1) {
+        // When using an edit things are little different, firstly we find record inside DataService by id
+        const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
+          (x) => x.pageId === this.pageId
+        );
+        // Then you update that record using data from dialogData (values you enetered)
+        this.exampleDatabase.dataChange.value[foundIndex] =
+          this.advanceTableService.getDialogData();
+        // And lastly refresh table
+        this.refreshTable();
+        this.showNotification(
+          "snackbar-success",
+          "Edit Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      }
+    });
+  }
+
+  editSubPages(row) {
+    this.pageId = row.pageId;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(EditDialogComponent, {
       data: {
         advanceTable: row,
         action: "edit",

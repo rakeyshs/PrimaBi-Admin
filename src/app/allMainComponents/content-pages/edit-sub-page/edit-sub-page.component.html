@@ -1,0 +1,101 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb
+        [title]="'Edit Sub-Pages'"
+        [items]="['Pages']"
+        [active_item]="'Edit Sub-Pages'"
+      >
+      </app-breadcrumb>
+    </div>
+    <!-- Basic Validation -->
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong>Edit Sub Pages</strong></h2>
+          </div>
+          <div class="body">
+            <form
+              class="m-4"
+              class="register-form m-4"
+              [formGroup]="addPagesForm"
+              *ngFor="let subpage of subPagesData"
+            >
+              <hr />
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <div class="mb-3">
+                    <label for="heading" class="form-label">Heading</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="heading"
+                      formControlName="heading"
+                      aria-describedby=""
+                      value="{{ subpage.heading }}"
+                      placeholder="Enter Heading"
+                      [class.is-invalid]="
+                        addPagesForm.controls['heading'].touched &&
+                        addPagesForm.controls['heading'].invalid
+                      "
+                    />
+                  </div>
+                  <div
+                    class="text-danger"
+                    *ngIf="
+                      addPagesForm.controls['heading'].touched &&
+                      addPagesForm.controls['heading'].invalid
+                    "
+                  >
+                    Please enter a valid heading
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-label>Description</mat-label>
+                  <ckeditor
+                    [editor]="Editor"
+                    formControlName="description"
+                  ></ckeditor>
+                </div>
+              </div>
+
+              <!-- <div class="col-sm-10" align="right">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  style="background-color: #3f51b5"
+                >
+                  Add Information
+                </button>
+              </div> -->
+
+              <hr />
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button
+                    class="btn-space"
+                    [disabled]="!addPagesForm.valid"
+                    mat-raised-button
+                    color="primary"
+                  >
+                    Submit
+                  </button>
+                  <button type="button" mat-button>Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- #END# Basic Validation -->
+  </div>
+</section>

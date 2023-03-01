@@ -21,8 +21,8 @@
               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                 <div class="mb-3">
                   <div class="row">
-                    <div class="col-4"><h5>Title :</h5></div>
-                    <div class="col-8">{{ viewData.title }}</div>
+                    <div class="col-4">Title :</div>
+                    <div class="col-8">{{ title }}</div>
                   </div>
                 </div>
               </div>
@@ -30,8 +30,8 @@
               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                 <div class="mb-3">
                   <div class="row">
-                    <div class="col-4"><h5>Keyword :</h5></div>
-                    <div class="col-8">{{ viewData.keyword }}</div>
+                    <div class="col-4">Keyword :</div>
+                    <div class="col-8">{{ keyword }}</div>
                   </div>
                 </div>
               </div>
@@ -41,8 +41,12 @@
               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                 <div class="mb-3">
                   <div class="row">
-                    <div class="col-4"><h5>PPT :</h5></div>
-                    <div class="col-8">{{ viewData.ppTpath }}</div>
+                    <div class="col-4">PPT :</div>
+                    <div class="col-8">
+                      <a href="{{ pptUrl }}">
+                        {{ pptUrl }}
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -50,8 +54,40 @@
               <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
                 <div class="mb-3">
                   <div class="row">
-                    <div class="col-4"><h5>Video Image :</h5></div>
-                    <div class="col-8">{{ viewData.videoImage }}</div>
+                    <div class="col-4">Video Image :</div>
+                    <div class="col-8">
+                      <a href=" {{ videoImage }}" target="_bla">
+                        {{ videoImage }}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                <div class="mb-3">
+                  <div class="row">
+                    <div class="col-4">Video URL :</div>
+                    <div class="col-8">
+                      <a href="{{ videoURL }}" target="_bla">
+                        {{ videoURL }}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                <div class="mb-3">
+                  <div class="row">
+                    <div class="col-4">Snapshot :</div>
+                    <div class="col-8">
+                      <a href=" {{ snapshot }}" target="_bla">
+                        {{ snapshot }}
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -61,20 +97,9 @@
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <div class="mb-3">
                   <div class="row">
-                    <div class="col-2"><h5>Video URL :</h5></div>
-                    <div class="col-10">{{ viewData.videoURL }}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                <div class="mb-3">
-                  <div class="row">
-                    <div class="col-2"><h5>Description :</h5></div>
+                    <div class="col-2">Description :</div>
                     <div class="col-10">
-                      <p>{{ viewData.description }}</p>
+                      <p>{{ description }}</p>
                     </div>
                   </div>
                 </div>
@@ -83,18 +108,18 @@
             <hr />
             <h4>Sub-Pages</h4>
             <br />
-            <div class="row" *ngFor="let subpages of viewData.subPages">
+            <div class="row" *ngFor="let subpages of subpages">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                 <div class="mb-3">
                   <div class="row">
-                    <div class="col-2"><h5>Heading :</h5></div>
+                    <div class="col-2">Heading :</div>
                     <div class="col-10">
                       {{ subpages.heading }}
                     </div>
                   </div>
                   <br />
                   <div class="row">
-                    <div class="col-2"><h5>Description :</h5></div>
+                    <div class="col-2">Description :</div>
                     <div class="col-10">
                       <p>
                         {{ subpages.description }}
