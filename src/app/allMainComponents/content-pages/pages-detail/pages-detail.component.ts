@@ -116,6 +116,10 @@ export class PagesDetailComponent
     });
   }
 
+
+  // edit subpages
+
+  
   // delete content-page
   deleteItem(row) {
     this.pageId = row.pageId;

@@ -67,8 +67,8 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       // {
-      //   path: "/content-pages/user-view",
-      //   title: "User View",
+      //   path: "/content-pages/update-page",
+      //   title: "update view",
       //   iconType: "",
       //   icon: "",
       //   class: "ml-menu",

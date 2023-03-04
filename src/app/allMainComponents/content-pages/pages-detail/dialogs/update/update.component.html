@@ -1,0 +1,51 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="' Page view'" [items]="['Pages']" [active_item]="'Page view'">
+        </app-breadcrumb>
+      </div>
+  
+      <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="header">
+              <h2><strong>Content Page</strong></h2>
+            </div>
+            <div class="card-body">
+
+              <form formGroup="createContactForm" (submit)="add()">
+              <div class="row" >
+                <!-- first1 -->
+                <div class="col-sm-12">
+                  <label class="label">Heading</label>
+                  <input type="text" class="form-control" name="heading" formControlName="heading" placeHolder="heading"
+                    >
+        
+               
+                </div>
+        
+        
+              </div>
+        
+              <div class="row" >
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <mat-label>Description</mat-label>
+                  <ckeditor class="ck-editor__editable_inline" [editor]="Editor" formControlName="description">
+                  </ckeditor>
+                </div>
+              </div>
+
+            </form>
+            </div>
+  
+  
+  
+            <!-- contain -->
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  </section>

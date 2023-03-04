@@ -1,5 +1,6 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Component, Inject } from "@angular/core";
+
 import { PagesService } from "../../../pages.service";
 import {
   UntypedFormControl,
@@ -7,26 +8,30 @@ import {
   UntypedFormGroup,
   UntypedFormBuilder,
 } from "@angular/forms";
+import * as ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { subPages } from "../../../sub-pages.modle";
 
-import { addPagesModle } from "../../../pages.modle";
 
 @Component({
-  selector: 'app-form-dialog',
-  templateUrl: './form-dialog.component.html',
-  styleUrls: ['./form-dialog.component.sass']
+  selector: 'app-update-content-page',
+  templateUrl: './update-content-page.component.html',
+  styleUrls: ['./update-content-page.component.sass']
 })
-export class FormDialogComponent {
+export class UpdateContentPageComponent {
+  public Editor =ClassicEditor;
+  
   action: string;
   actionData: string;
   dialogTitle: string;
   parentOption: string;
-  advanceTable:addPagesModle;
+  advanceTable:subPages;
   advanceTableForm: UntypedFormGroup;
   constructor(
-    public dialogRef: MatDialogRef<FormDialogComponent>,
+    public dialogRef: MatDialogRef<UpdateContentPageComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public advanceTableService: PagesService,
-    private fb: UntypedFormBuilder
+    private fb: UntypedFormBuilder,
+  
   ) {
     // Set the defaults
     this.action = data.action;
@@ -48,23 +53,28 @@ export class FormDialogComponent {
   ngOnInit() {
     this.advanceTableService.data1.subscribe((data) => {
       console.warn(data);
+
       this.apiData = data;
     });
   }
 
-
-
+  formControl = new UntypedFormControl("", [
+    Validators.required,
+    // Validators.email,
+  ]);
+  getErrorMessage() {
+    return this.formControl.hasError("required")
+      ? "Required field"
+      : this.formControl.hasError("email")
+      ? "Not a valid email"
+      : "";
+  }
   createContactForm(): UntypedFormGroup {
     return this.fb.group({
-      title: [this.advanceTable.title],
-      keyword: [this.advanceTable.keyword],
+      heading:[this.advanceTable.heading],
       description: [this.advanceTable.description],
-      ppTpath: [this.advanceTable.ppTpath, [Validators.required]],
-      videoImage: [this.advanceTable.videoImage, [Validators.required]],
-      videoURL: [this.advanceTable.videoURL, [Validators.required]],
-      snapshot: [this.advanceTable.snapshot, [Validators.required]],
 
-    })
+    });
   }
   submit() {
     // emppty stuff
@@ -90,4 +100,3 @@ export class FormDialogComponent {
     }
   }
 }
-

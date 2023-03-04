@@ -37,6 +37,10 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
     console.log("user"+keyword);
     return this.http.get<addPagesModle>(this.API_URL +'content-page/'+keyword);
     }
+    update(pageId:number): Observable<addPagesModle> {
+      console.log("user"+pageId);
+      return this.http.get<addPagesModle>(this.API_URL +'content-page/getpage/'+pageId);
+      }
   get data(): addPagesModle[] {
     return this.dataChange.value;
   }
@@ -56,6 +60,12 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
 
   return this.http.post(this.API_URL +'attachment/upload',formData) ;
 
+
+}
+// //keyword
+   
+menu(keyword:string): Observable<addPagesModle>{    
+  return this.http.get<addPagesModle>(this.API_URL+ 'content-page/is-unique-keyword/'+keyword)
 
 }
 

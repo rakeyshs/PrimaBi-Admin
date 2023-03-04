@@ -42,9 +42,11 @@ import { PagesService } from "./pages.service";
 import { DeleteDialogComponent } from './pages-detail/dialogs/delete-dialog/delete-dialog.component';
 import { FormDialogComponent } from './pages-detail/dialogs/form-dialog/form-dialog.component';
 import { UserViewComponent } from './pages-detail/dialogs/user-view/user-view.component';
+import { UpdateContentPageComponent } from './pages-detail/dialogs/update-content-page/update-content-page.component';
+import { UpdateComponent } from './pages-detail/dialogs/update/update.component';
 
 @NgModule({
-  declarations: [AddPagesComponent, PagesDetailComponent, DeleteDialogComponent, FormDialogComponent, UserViewComponent],
+  declarations: [AddPagesComponent, PagesDetailComponent, DeleteDialogComponent, FormDialogComponent, UserViewComponent, UpdateContentPageComponent, UpdateComponent],
   imports: [
     CommonModule,
     ContentPagesRoutingModule,

@@ -23,6 +23,7 @@ export class AddPagesComponent implements OnInit {
   public Editor = ClassicEditor;
   @Input() progress;
   onChange: Function;
+  attachmentURL="https://api.primabi.co/uploads/";
 
   pptUploadPath: string[] = [];
   pptPath: any;
@@ -30,6 +31,8 @@ export class AddPagesComponent implements OnInit {
   vdoImgPath: any;
   snapShotPath: string[] = [];
   snapShotPaths: any;
+  users:any;
+  selectFilesPath4:any;
 
   constructor(private fb: FormBuilder, private pagesServe: PagesService) {}
 
@@ -51,6 +54,7 @@ export class AddPagesComponent implements OnInit {
   agree = false;
   customForm: UntypedFormGroup;
   subPageList: subPages[] = [];
+  
 
   pptData: any;
 
@@ -69,16 +73,16 @@ export class AddPagesComponent implements OnInit {
 
   //
   onAddPagesForm() {
-    this.addPagesData.title = this.addPagesForm.value.title;
+    this.addPagesData.title =  this.addPagesForm.value.title;
     this.addPagesData.keyword = this.addPagesForm.value.keyword;
-    this.addPagesData.ppTpath = this.selectFilesPath1.response;
-    this.addPagesData.videoImage = this.selectFilesPath2.response;
+    this.addPagesData.ppTpath = this.attachmentURL+this.selectFilesppTPath. response.slice(8);
+    this.addPagesData.videoImage = this.attachmentURL+ this.selectFilesvideoImage.response.slice(8);
     this.addPagesData.videoURL = this.addPagesForm.value.videoURL;
     this.addPagesData.description = this.addPagesForm.value.descriptions;
-    this.addPagesData.snapshot = this.selectFilesPath3.response;
+    this.addPagesData.snapshot = this.attachmentURL+ this.selectFilessnapshot.response.slice(8);
     this.addPagesData.subPages = this.subPageList;
     console.log("Form Value", this.addPagesData);
-    // this.addPagesForm.reset();
+    this.addPagesForm.reset();
 
     Swal.fire({
       title: "Are you sure?",
@@ -95,7 +99,24 @@ export class AddPagesComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  // keyword value
+
+  keyword1(keyword:any){
+    
+      this.pagesServe.menu(keyword).subscribe((data) => {
+        this.users = data;
+        if (this.users.response == true) {
+          this.addPagesForm.controls["keyword"].reset();
+        }
+      });
+    }
+  
+    
+  
+
+  
 
   //heading and description function
 
@@ -129,13 +150,18 @@ export class AddPagesComponent implements OnInit {
     }
   }
 
+  
+
   //file uploading
+  keyword:any;
   selectFiles1:FileList|any;
   selectFiles2:FileList|any;
   selectFiles3:FileList|any;
-  selectFilesPath1:any;
-  selectFilesPath2:any;
-  selectFilesPath3:any;
+  selectFilesppTPath:any;
+  selectFilesvideoImage:any;
+  selectFilessnapshot:any;
+
+  
 
   //pptPath upload
   getFileDetails1(e:any) {
@@ -145,7 +171,7 @@ export class AddPagesComponent implements OnInit {
     this.pagesServe.fileUpload(this.selectFiles1).subscribe((ppTpath)=>{
       console.log(ppTpath);
 
-      this.selectFilesPath1=ppTpath;
+      this.selectFilesppTPath=ppTpath;
       
     })
 
@@ -158,7 +184,7 @@ getFileDetails2(e:any) {
   this.pagesServe.fileUpload(this.selectFiles2).subscribe((videoImage)=>{
     console.log(videoImage);
 
-    this.selectFilesPath2=videoImage;
+    this.selectFilesvideoImage=videoImage;
     
   })
 
@@ -171,9 +197,10 @@ getFileDetails3(e:any) {
   this.selectFiles3 = e.target.files;
   this.pagesServe.fileUpload(this.selectFiles3).subscribe((snapshot)=>{
     console.log(snapshot);
-    this.selectFilesPath3=snapshot;
+    this.selectFilessnapshot=snapshot;
     
   })
+
 
 
 }

@@ -30,13 +30,19 @@
                   </div>
                 </div>
 
+                <!--  -->
+
                 <!-- second -->
                 <div class="col-sm-6">
-                  <label class="label">keyword</label>
-                  <input type="text" class="form-control" name="keyword" formControlName="keyword" placeHolder="keyword"
+                  <label class="label"*ngIf="keyword1"  >Keyword</label>
+                  <input type="text" class="form-control"
+                  change="$event.keyword1.value"
+                  name="keyword" formControlName="keyword" placeHolder="keyword"
+        
+               
                     [class.is-invalid]="addPagesForm.controls['keyword'].touched && addPagesForm.controls['keyword'].invalid">
 
-                  <div class="text-danger" *ngIf="
+                  <div class="text-danger" *ngIf=" 
                 addPagesForm.controls['keyword'].touched &&
                 addPagesForm.controls['keyword'].invalid
                       ">
@@ -50,14 +56,14 @@
 
 
               <div class="row">
-                <!-- first1 -->
+
 
 
                 <!-- first1 -->
                 <div class="col-sm-6">
-                  <label class="label">ppTpath</label>
+                  <label class="label">ppt Path</label>
                   <input class="form-control" type="file" [formControl]="addPagesForm.controls['pptUpload']"
-                    formControlName="pptUpload" name="pptUpload" id="pptUpload" (change)="getFileDetails2($event)"
+                    formControlName="pptUpload" name="pptUpload" id="pptUpload" (change)="getFileDetails1($event)"
                     [class.is-invalid]="
                         addPagesForm.controls['pptUpload'].touched &&
                         addPagesForm.controls['pptUpload'].invalid
@@ -66,15 +72,15 @@
                         addPagesForm.controls['pptUpload'].touched &&
                         addPagesForm.controls['pptUpload'].invalid
                         ">
-                    Please select ppTpath file
+                    Please select ppt path file
                   </div>
                 </div>
 
                 <div class="col-sm-6">
-                  <label class="label">videoImage</label>
+                  <label class="label">Video Image</label>
                   <input class="form-control" type="file" formControlName="videoImageUpload"
                     [formControl]="addPagesForm.controls['videoImageUpload']" name="" id=""
-                    (change)="getFileDetails1($event)" [class.is-invalid]="
+                    (change)="getFileDetails2($event)" [class.is-invalid]="
                   addPagesForm.controls['videoImageUpload'].touched &&
                   addPagesForm.controls['videoImageUpload'].invalid
                   " />
@@ -82,7 +88,7 @@
                   addPagesForm.controls['videoImageUpload'].touched &&
                   addPagesForm.controls['videoImageUpload'].invalid
                   ">
-                    Please select videoImage
+                    Please select video Image
                   </div>
                 </div>
 
@@ -94,7 +100,7 @@
 
 
                 <div class="col-sm-6">
-                  <label class="label">snapshot</label>
+                  <label class="label">Snapshot</label>
                   <input class="form-control" type="file" [formControl]="addPagesForm.controls['snapshot']"
                     formControlName="snapshot" name="" id="" (change)="getFileDetails3($event)" [class.is-invalid]="
                   addPagesForm.controls['snapshot'].touched &&
@@ -112,7 +118,7 @@
                 <!-- second -->
 
                 <div class="col-sm-6">
-                  <label class="label">videoURL</label>
+                  <label class="label">Video URL</label>
                   <input type="email" class="form-control" name="videoURL" formControlName="videoURL"
                     placeHolder="videoURL"
                     [class.is-invalid]="addPagesForm.controls['videoURL'].touched && addPagesForm.controls['videoURL'].invalid">
@@ -120,7 +126,7 @@
                 addPagesForm.controls['videoURL'].touched &&
                 addPagesForm.controls['videoURL'].invalid
                         ">
-                    Please enter a valid videoURL
+                    Please enter a valid video URL
                   </div>
 
                 </div>
