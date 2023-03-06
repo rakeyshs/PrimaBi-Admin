@@ -1,0 +1,289 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          {{ dialogTitle }}
+        </div>
+      </div>
+    </div>
+    <button
+      mat-icon-button
+      (click)="dialogRef.close()"
+      class="modal-close-button"
+      aria-label="Close dialog"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form
+      class="register-form m-4"
+      [formGroup]="advanceTableForm"
+      (ngSubmit)="(submit)"
+    >
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <label for="title">Title</label>&nbsp;<span style="color: red"
+            >*</span
+          >
+          <input
+            class="form-control"
+            type="text"
+            [formControl]="advanceTableForm.controls['title']"
+            id="title"
+            formControlName="title"
+            name=""
+            placeholder="Menu Name"
+            [class.is-invalid]="
+              advanceTableForm.controls['title'].touched &&
+              advanceTableForm.controls['title'].invalid
+            "
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['title'].touched &&
+              advanceTableForm.controls['title'].invalid
+            "
+          >
+            Title is Required
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <label for="keyword">Keyword</label>&nbsp;<span style="color: red"
+            >*</span
+          >
+          <input
+            class="form-control"
+            type="text"
+            [formControl]="advanceTableForm.controls['keyword']"
+            id="keyword"
+            formControlName="keyword"
+            (change)="keywordCheck($event.target.value)"
+            name=""
+            placeholder="Menu Name"
+            [class.is-invalid]="
+              advanceTableForm.controls['keyword'].touched &&
+              advanceTableForm.controls['keyword'].invalid
+            "
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['keyword'].touched &&
+              advanceTableForm.controls['keyword'].invalid
+            "
+          >
+            Keyword is Required
+          </div>
+        </div>
+      </div>
+
+      <!--  -->
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <label for="ppTpath">PPT</label>&nbsp;<span style="color: red"
+            >*</span
+          >
+          <input
+            type="file"
+            class="form-control"
+            (change)="getpptUploadPath($event)"
+          />
+          <input
+            class="form-control"
+            type="hidden"
+            [formControl]="advanceTableForm.controls['ppTpath']"
+            id="ppTpath"
+            formControlName="ppTpath"
+            name=""
+            placeholder="Menu Name"
+            [class.is-invalid]="
+              advanceTableForm.controls['ppTpath'].touched &&
+              advanceTableForm.controls['ppTpath'].invalid
+            "
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['ppTpath'].touched &&
+              advanceTableForm.controls['ppTpath'].invalid
+            "
+          >
+            PPT is Required
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+          <label for="videoImage">Vide Image</label>&nbsp;<span
+            style="color: red"
+            >*</span
+          >
+
+          <input
+            class="form-control"
+            type="file"
+            id="videoImage"
+            (change)="getvideoImagePath($event)"
+            name=""
+            placeholder="Menu Name"
+            required
+          />
+
+          <input
+            type="hidden"
+            class="form-control"
+            [formControl]="advanceTableForm.controls['videoImage']"
+            id="videoImage"
+            formControlName="videoImage"
+            name=""
+            placeholder="Menu Name"
+            [class.is-invalid]="
+              advanceTableForm.controls['videoImage'].touched &&
+              advanceTableForm.controls['videoImage'].invalid
+            "
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['videoImage'].touched &&
+              advanceTableForm.controls['videoImage'].invalid
+            "
+          >
+            Keyword is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <label for="videoURL">Video URL</label>&nbsp;<span style="color: red"
+            >*</span
+          >
+          <input
+            class="form-control"
+            type="text"
+            [formControl]="advanceTableForm.controls['videoURL']"
+            id="videoURL"
+            formControlName="videoURL"
+            name="videoURL"
+            placeholder="URL"
+            [class.is-invalid]="
+              advanceTableForm.controls['videoURL'].touched &&
+              advanceTableForm.controls['videoURL'].invalid
+            "
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['videoURL'].touched &&
+              advanceTableForm.controls['videoURL'].invalid
+            "
+          >
+            Video URL is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <label for="description">Description</label>&nbsp;<span
+            style="color: red"
+            >*</span
+          >
+          <textarea
+            class="form-control"
+            formControlName="description"
+            [formControl]="advanceTableForm.controls['description']"
+            placeholder="Description"
+            [class.is-invalid]="
+              advanceTableForm.controls['description'].touched &&
+              advanceTableForm.controls['description'].invalid
+            "
+            required
+            name="description"
+            id="description"
+            cols="30"
+            rows="3"
+          ></textarea>
+
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['description'].touched &&
+              advanceTableForm.controls['description'].invalid
+            "
+          >
+            Description is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <label for="snapshot">Snapshot</label>&nbsp;<span style="color: red"
+            >*</span
+          >
+          <input
+            type="file"
+            class="form-control"
+            (change)="getsnapShotPath($event)"
+          />
+          <input
+            class="form-control"
+            type="hidden"
+            [formControl]="advanceTableForm.controls['snapshot']"
+            id="snapshot"
+            formControlName="snapshot"
+            name="snapshot"
+            [class.is-invalid]="
+              advanceTableForm.controls['snapshot'].touched &&
+              advanceTableForm.controls['snapshot'].invalid
+            "
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['snapshot'].touched &&
+              advanceTableForm.controls['snapshot'].invalid
+            "
+          >
+            Snapshot is Required
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row">
+            <button
+              mat-raised-button
+              color="primary"
+              [type]="submit"
+              [disabled]="!advanceTableForm.valid"
+              [mat-dialog-close]="1"
+              (click)="confirmAdd()"
+            >
+              Save
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="onNoClick()"
+              tabindex="-1"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

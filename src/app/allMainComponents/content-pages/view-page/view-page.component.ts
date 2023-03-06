@@ -40,6 +40,8 @@ export class ViewPageComponent {
       this.description = this.viewData.description;
       this.snapshot = this.viewData.snapshot;
       this.subpages = this.viewData.subPages;
+
+      console.log(this.subpages[0].description);
     });
   }
 }

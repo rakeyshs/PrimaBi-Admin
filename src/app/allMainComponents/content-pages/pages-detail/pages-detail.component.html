@@ -288,6 +288,21 @@
                         mat-icon-button
                         color="accent"
                         (click)="$event.stopPropagation()"
+                        routerLink="/content-pages/edit-sub-page/{{
+                          row.pageId
+                        }}"
+                        class="tbl-action-btn"
+                      >
+                        <app-feather-icons
+                          [icon]="'file-text'"
+                          [class]="'tbl-fav-file-text'"
+                        ></app-feather-icons>
+                      </button>
+
+                      <button
+                        mat-icon-button
+                        color="accent"
+                        (click)="$event.stopPropagation()"
                         routerLink="/content-pages/{{ row.keyword }}"
                         class="tbl-action-btn"
                       >
@@ -307,20 +322,6 @@
                         <app-feather-icons
                           [icon]="'trash-2'"
                           [class]="'tbl-fav-delete'"
-                        ></app-feather-icons>
-                      </button>
-                      <button
-                        mat-icon-button
-                        color="accent"
-                        (click)="$event.stopPropagation()"
-                        routerLink="/content-pages/edit-sub-page/{{
-                          row.pageId
-                        }}"
-                        class="tbl-action-btn"
-                      >
-                        <app-feather-icons
-                          [icon]="'file-text'"
-                          [class]="'tbl-fav-file-text'"
                         ></app-feather-icons>
                       </button>
                     </mat-cell>

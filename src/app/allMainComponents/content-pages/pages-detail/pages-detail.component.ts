@@ -99,6 +99,7 @@ export class PagesDetailComponent
     });
   }
   editCall(row) {
+    console.log(row);
     this.pageId = row.pageId;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
@@ -106,7 +107,7 @@ export class PagesDetailComponent
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(EditDialogComponent, {
+    const dialogRef = this.dialog.open(FormDialogComponent, {
       data: {
         advanceTable: row,
         action: "edit",
@@ -142,7 +143,7 @@ export class PagesDetailComponent
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(EditDialogComponent, {
+    const dialogRef = this.dialog.open(FormDialogComponent, {
       data: {
         advanceTable: row,
         action: "edit",

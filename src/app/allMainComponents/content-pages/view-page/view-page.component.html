@@ -106,7 +106,9 @@
               </div>
             </div>
             <hr />
-            <h4>Sub-Pages</h4>
+            <div class="header">
+              <h2><strong>Sub Pages</strong></h2>
+            </div>
             <br />
             <div class="row" *ngFor="let subpages of subpages">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
@@ -121,9 +123,7 @@
                   <div class="row">
                     <div class="col-2">Description :</div>
                     <div class="col-10">
-                      <p>
-                        {{ subpages.description }}
-                      </p>
+                      {{ subpages.description }}
                     </div>
                   </div>
                 </div>

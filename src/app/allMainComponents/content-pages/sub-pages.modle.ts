@@ -1,3 +1,7 @@
 export class subPages {
-  constructor(public heading: string, public description: string) {}
+  constructor(
+    public subPageId: number,
+    public heading: string,
+    public description: string
+  ) {}
 }

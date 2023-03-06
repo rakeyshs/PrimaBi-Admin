@@ -58,7 +58,7 @@ export class AddPagesComponent implements OnInit {
 
   pptData: any;
 
-  subPagesData: subPages = new subPages("", "");
+  subPagesData: subPages = new subPages(0, "", "");
   addPagesData: addPagesModle = new addPagesModle(
     0,
     "",
@@ -116,7 +116,7 @@ export class AddPagesComponent implements OnInit {
       this.subPageList.push(this.subPagesData);
       console.log(this.subPageList);
 
-      this.subPagesData = new subPages("", "");
+      this.subPagesData = new subPages(0, "", "");
       this.addPagesForm.controls["heading"].reset();
       this.addPagesForm.controls["description"].reset();
 

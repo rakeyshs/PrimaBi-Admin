@@ -3,99 +3,306 @@
     <div class="block-header">
       <!-- breadcrumb -->
       <app-breadcrumb
-        [title]="'Edit Sub-Pages'"
-        [items]="['Pages']"
-        [active_item]="'Edit Sub-Pages'"
-      >
-      </app-breadcrumb>
+        [title]="'Menu & Sub-Menu'"
+        [active_item]="'Menu & Sub-Menu'"
+      ></app-breadcrumb>
     </div>
-    <!-- Basic Validation -->
-    <div class="row clearfix">
+
+    <div class="row">
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="card">
-          <div class="header">
-            <h2><strong>Edit Sub Pages</strong></h2>
-          </div>
           <div class="body">
-            <form
-              class="m-4"
-              class="register-form m-4"
-              [formGroup]="addPagesForm"
-              *ngFor="let subpage of subPagesData"
-            >
-              <hr />
-
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <div class="mb-3">
-                    <label for="heading" class="form-label">Heading</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="heading"
-                      formControlName="heading"
-                      aria-describedby=""
-                      value="{{ subpage.heading }}"
-                      placeholder="Enter Heading"
-                      [class.is-invalid]="
-                        addPagesForm.controls['heading'].touched &&
-                        addPagesForm.controls['heading'].invalid
-                      "
-                    />
+            <div class="responsive_table">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ms-0">
+                      <li class="tbl-title"></li>
+                      <li class="tbl-search-box">
+                        <label for="search-input"
+                          ><i class="material-icons search-icon"
+                            >search</i
+                          ></label
+                        >
+                        <input
+                          placeholder="Search"
+                          type="text"
+                          #filter
+                          class="browser-default search-field"
+                          aria-label="Search box"
+                        />
+                      </li>
+                      <li class="tbl-header-btn">
+                        <div class="m-l-10" matTooltip="ADD">
+                          <button
+                            mat-mini-fab
+                            color="primary"
+                            (click)="addNew()"
+                          >
+                            <mat-icon class="col-white">add</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                      <li class="tbl-header-btn">
+                        <div class="m-l-10" matTooltip="REFRESH">
+                          <button
+                            mat-mini-fab
+                            color="primary"
+                            (click)="refresh()"
+                          >
+                            <mat-icon class="col-white">refresh</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                      <li class="tbl-header-btn">
+                        <div
+                          class="m-l-10"
+                          [hidden]="!selection.hasValue()"
+                          matTooltip="DELETE"
+                        >
+                          <button
+                            mat-mini-fab
+                            color="warn"
+                            (click)="removeSelectedRows()"
+                          >
+                            <mat-icon class="col-white">delete </mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
                   </div>
-                  <div
-                    class="text-danger"
-                    *ngIf="
-                      addPagesForm.controls['heading'].touched &&
-                      addPagesForm.controls['heading'].invalid
-                    "
+                  <div class="col-4">
+                    <ul class="tbl-export-btn">
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="XLSX">
+                          <img
+                            src="assets/images/icons/xlsx.png"
+                            alt=""
+                            (click)="
+                              exporter.exportTable('xlsx', {
+                                fileName: 'assets-list',
+                                sheet: 'sheet1'
+                              })
+                            "
+                          />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="CSV">
+                          <img
+                            src="assets/images/icons/csv.png"
+                            alt=""
+                            (click)="exporter.exportTable('csv')"
+                          />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="JSON">
+                          <img
+                            src="assets/images/icons/json.png"
+                            alt=""
+                            (click)="exporter.exportTable('json')"
+                          />
+                        </div>
+                      </li>
+                      <li>
+                        <div class="export-button m-l-10" matTooltip="TXT">
+                          <img
+                            src="assets/images/icons/txt.png"
+                            alt=""
+                            (click)="exporter.exportTable('txt')"
+                          />
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <mat-table
+                #table
+                matTableExporter
+                [dataSource]="dataSource"
+                matSort
+                class="mat-cell"
+                #exporter="matTableExporter"
+              >
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <mat-header-cell
+                    *matHeaderCellDef
+                    [ngClass]="'tbl-col-width-per-7'"
                   >
-                    Please enter a valid heading
-                  </div>
-                </div>
-              </div>
+                    Sr.No.
+                  </mat-header-cell>
+                  <mat-cell
+                    *matCellDef="let row; let i = index"
+                    [ngClass]="'tbl-col-width-per-7'"
+                  >
+                    {{ i + 1 }}
+                  </mat-cell>
+                </ng-container>
+                <!-- ID Column -->
+                <ng-container matColumnDef="subPageId">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header
+                    >Id</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let row">{{ row.subPageId }}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="heading">
+                  <mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    [ngClass]="'tbl-col'"
+                    >heading
+                  </mat-header-cell>
+                  <mat-cell
+                    *matCellDef="let row"
+                    (contextmenu)="onContextMenu($event, row)"
+                    [ngClass]="'tbl-col'"
+                  >
+                    {{ row.heading }}</mat-cell
+                  >
+                </ng-container>
 
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <mat-label>Description</mat-label>
-                  <ckeditor
-                    [editor]="Editor"
-                    formControlName="description"
-                  ></ckeditor>
-                </div>
-              </div>
+                <ng-container matColumnDef="description">
+                  <mat-header-cell
+                    *matHeaderCellDef
+                    mat-sort-header
+                    [ngClass]="'tbl-col'"
+                    >description
+                  </mat-header-cell>
+                  <mat-cell
+                    *matCellDef="let row"
+                    (contextmenu)="onContextMenu($event, row)"
+                    [ngClass]="'tbl-col'"
+                  >
+                    {{ row.description }}</mat-cell
+                  >
+                </ng-container>
 
-              <!-- <div class="col-sm-10" align="right">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  style="background-color: #3f51b5"
+                <!-- actions -->
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell class="pr-0" *matHeaderCellDef
+                    >Actions</mat-header-cell
+                  >
+                  <mat-cell *matCellDef="let row; let i = index" class="pr-0">
+                    <button
+                      mat-icon-button
+                      color="accent"
+                      (click)="$event.stopPropagation()"
+                      (click)="editCall(row)"
+                      class="tbl-action-btn"
+                    >
+                      <app-feather-icons
+                        [icon]="'edit'"
+                        [class]="'tbl-fav-edit'"
+                      ></app-feather-icons>
+                    </button>
+                    <button
+                      mat-icon-button
+                      color="accent"
+                      (click)="$event.stopPropagation()"
+                      (click)="deleteItem(row)"
+                      class="tbl-action-btn"
+                    >
+                      <app-feather-icons
+                        [icon]="'trash-2'"
+                        [class]="'tbl-fav-delete'"
+                      ></app-feather-icons>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+                <mat-header-row
+                  *matHeaderRowDef="displayedColumns"
+                ></mat-header-row>
+                <mat-row
+                  *matRowDef="let row; columns: displayedColumns"
+                  (click)="editCall(row)"
+                  [style.cursor]="'pointer'"
+                  matRipple
                 >
-                  Add Information
-                </button>
-              </div> -->
-
-              <hr />
-
-              <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                  <button
-                    class="btn-space"
-                    [disabled]="!addPagesForm.valid"
-                    mat-raised-button
-                    color="primary"
-                  >
-                    Submit
-                  </button>
-                  <button type="button" mat-button>Cancel</button>
-                </div>
+                </mat-row>
+              </mat-table>
+              <!-- Loading spinner -->
+              <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                <mat-progress-spinner
+                  color="primary"
+                  [diameter]="40"
+                  mode="indeterminate"
+                >
+                </mat-progress-spinner>
               </div>
-            </form>
+              <!-- context menu start -->
+              <div
+                style="visibility: hidden; position: fixed"
+                [style.left]="contextMenuPosition.x"
+                [style.top]="contextMenuPosition.y"
+                [matMenuTriggerFor]="contextMenu"
+              ></div>
+              <mat-menu #contextMenu="matMenu">
+                <ng-template matMenuContent let-item="item">
+                  <button mat-menu-item (click)="addNew()">
+                    <mat-icon>add_box</mat-icon>
+                    <span>Add Record</span>
+                  </button>
+                  <button mat-menu-item (click)="editCall(item)">
+                    <mat-icon>create</mat-icon>
+                    <span>Edit Record</span>
+                  </button>
+                  <button mat-menu-item (click)="deleteItem(item)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete Record</span>
+                  </button>
+                  <button mat-menu-item (click)="refresh()">
+                    <mat-icon>refresh</mat-icon>
+                    <span>Refresh Record</span>
+                  </button>
+                  <button mat-menu-item disabled>
+                    <mat-icon>no_encryption</mat-icon>
+                    <span>Disable</span>
+                  </button>
+                  <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
+                    <mat-icon>list_alt</mat-icon>
+                    <span> Nested Menu</span>
+                  </button>
+                </ng-template>
+              </mat-menu>
+              <mat-menu #nestedmenu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon>mail_outline</mat-icon>
+                  <span>Item 1</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>call</mat-icon>
+                  <span>Item 2</span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon>chat</mat-icon>
+                  <span>Item 3</span>
+                </button>
+              </mat-menu>
+              <!-- context menu end -->
+              <div
+                *ngIf="!exampleDatabase.isTblLoading"
+                class="no-results"
+                [style.display]="
+                  dataSource.renderedData.length == 0 ? '' : 'none'
+                "
+              >
+                No results
+              </div>
+              <mat-paginator
+                #paginator
+                [length]="dataSource.filteredData.length"
+                [pageIndex]="0"
+                [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]"
+              >
+              </mat-paginator>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- #END# Basic Validation -->
   </div>
 </section>

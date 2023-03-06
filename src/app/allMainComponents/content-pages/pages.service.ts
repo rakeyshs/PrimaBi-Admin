@@ -11,6 +11,7 @@ import {
 import { Router } from "@angular/router";
 import Swal from "sweetalert2";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+import { subPages } from "./sub-pages.modle";
 
 @Injectable()
 @Injectable({
@@ -22,6 +23,12 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
   dataChange: BehaviorSubject<addPagesModle[]> = new BehaviorSubject<
     addPagesModle[]
   >([]);
+
+  isTblLoading1 = true;
+
+  dataChange1: BehaviorSubject<subPages[]> = new BehaviorSubject<subPages[]>(
+    []
+  );
   // Temporarily stores data from dialogs
   dialogData: any;
 
@@ -31,6 +38,11 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
   get data1() {
     return this.http.get(this.API_URL + "content-page");
   }
+
+  getSubPagesList(id: number) {
+    return this.http.get(this.API_URL + "content-page/get-subpage/" + id);
+  }
+
   get data(): addPagesModle[] {
     return this.dataChange.value;
   }
@@ -103,13 +115,33 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
     return this.http.get(this.API_URL + "content-page/" + keyword);
   }
 
+  updateAdvanceTable(advanceTable: addPagesModle): void {
+    this.dialogData = advanceTable;
+
+    this.http
+      .post(
+        this.API_URL + "content-page/update/" + advanceTable.pageId,
+        advanceTable
+      )
+      .subscribe(
+        (data) => {
+          this.dialogData = advanceTable;
+        },
+        (err: HttpErrorResponse) => {
+          // error code here
+        }
+      );
+  }
+
   deleteAdvanceTable(id: number) {
-    return this.http.post("https://api.primabi.co/delete/" + id, id).subscribe(
-      (data) => {},
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
+    return this.http
+      .post(this.API_URL + "content-page/delete/" + id, id)
+      .subscribe(
+        (data) => {},
+        (err: HttpErrorResponse) => {
+          // error code here
+        }
+      );
   }
 
   isKeywordUnique(keyword: any) {
@@ -118,7 +150,22 @@ export class PagesService extends UnsubscribeOnDestroyAdapter {
     );
   }
 
-  getSubPages(id: number) {
-    return this.http.get(this.API_URL + "content-page/get-subpage/" + id);
+  // getSubPages(id: number) {
+  //   return this.http.get(this.API_URL + "content-page/get-subpage/" + id);
+  // }
+
+  getSubPages(id: number): void {
+    this.subs.sink = this.http
+      .get<subPages[]>(this.API_URL + "content-page/get-subpage/" + id)
+      .subscribe(
+        (data) => {
+          this.isTblLoading1 = false;
+          this.dataChange1.next(data);
+        },
+        (error: HttpErrorResponse) => {
+          this.isTblLoading = false;
+          console.log(error.name + " " + error.message);
+        }
+      );
   }
 }
