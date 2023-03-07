@@ -1,0 +1,94 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          {{ dialogTitle }}
+        </div>
+      </div>
+    </div>
+    <button
+      mat-icon-button
+      (click)="dialogRef.close()"
+      class="modal-close-button"
+      aria-label="Close dialog"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form
+      class="register-form m-4"
+      [formGroup]="advanceTableForm"
+      (ngSubmit)="(submit)"
+    >
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <label for="heading">Menu Name</label>&nbsp;<span style="color: red"
+            >*</span
+          >
+          <input
+            class="form-control"
+            type="text"
+            [formControl]="advanceTableForm.controls['heading']"
+            id="heading"
+            formControlName="heading"
+            name=""
+            placeholder="Menu Name"
+            [class.is-invalid]="
+              advanceTableForm.controls['heading'].touched &&
+              advanceTableForm.controls['heading'].invalid
+            "
+            required
+          />
+          <div
+            class="text-danger"
+            *ngIf="
+              advanceTableForm.controls['heading'].touched &&
+              advanceTableForm.controls['heading'].invalid
+            "
+          >
+            Menu Name is Required
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <label for="description">Description</label>&nbsp;<span
+            style="color: red"
+            >*</span
+          >
+          <ckeditor [editor]="Editor" formControlName="description"></ckeditor>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row">
+            <button
+              mat-raised-button
+              color="primary"
+              [type]="submit"
+              [disabled]="!advanceTableForm.valid"
+              [mat-dialog-close]="1"
+              (click)="confirmAdd()"
+            >
+              Save
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="onNoClick()"
+              tabindex="-1"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -20,13 +20,20 @@ import Swal from "sweetalert2";
 })
 export class FormDialogComponent {
   onChange: Function;
+  attachmentURL = "https://api.primabi.co/uploads/";
+
+  // onload data is sotred
+  apiData: any;
+  // ----------
+
+  // files variables----------
   pptUploadPath: string[] = [];
-  pptPath: any;
+  pptPaths: any;
   videoImagePath: string[] = [];
   vdoImgPath: any;
   snapShotPath: string[] = [];
   snapShotPaths: any;
-  attachmentURL = "https://api.primabi.co/uploads/";
+  // ----------------------------------
   tempKeyword: any;
   action: string;
   actionData: string;
@@ -64,8 +71,6 @@ export class FormDialogComponent {
     }
     this.advanceTableForm = this.createContactForm();
   }
-
-  apiData: any;
 
   ngOnInit() {
     this.advanceTableService.data1.subscribe((data) => {
@@ -118,7 +123,7 @@ export class FormDialogComponent {
       .FileAttachmentsUpload(this.pptUploadPath)
       .subscribe((data) => {
         console.log(data);
-        this.pptPath = data;
+        this.pptPaths = data;
 
         console.log(this.advanceTableForm.value);
       });
@@ -156,14 +161,14 @@ export class FormDialogComponent {
   public confirmAdd(): void {
     console.log("edit page ");
     if (this.actionData === "edit") {
-      this.advanceTableForm.value.ppTpath = this.pptPath
-        ? this.attachmentURL + this.pptPath.response.slice(8)
+      this.advanceTableForm.value.ppTpath = this.pptPaths
+        ? this.pptPaths.response.slice(8)
         : this.advanceTableForm.value.ppTpath;
       this.advanceTableForm.value.videoImage = this.vdoImgPath
-        ? this.attachmentURL + this.vdoImgPath.response.slice(8)
+        ? this.vdoImgPath.response.slice(8)
         : this.advanceTableForm.value.videoImage;
       this.advanceTableForm.value.snapshot = this.snapShotPaths
-        ? this.attachmentURL + this.snapShotPaths.response.slice(8)
+        ? this.snapShotPaths.response.slice(8)
         : this.advanceTableForm.value.snapshot;
 
       this.advanceTableService.updateAdvanceTable(this.advanceTableForm.value);

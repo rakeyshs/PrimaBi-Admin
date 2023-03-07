@@ -10,6 +10,7 @@ import {
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 
 import { ApiConstant } from "src/app/API/api-constants";
+import Swal from "sweetalert2";
 
 @Injectable({
   providedIn: "root",
@@ -56,17 +57,19 @@ export class SubpagesService extends UnsubscribeOnDestroyAdapter {
         }
       );
   }
-  addAdvanceTable(advanceTable: subPages): void {
+  addAdvanceTable(advanceTable: subPages, pageId: number): void {
     // this.dialogData = advanceTable;
 
-    this.httpClient.post(this.API_URL + "menu/add", advanceTable).subscribe(
-      (data) => {
-        this.dialogData = advanceTable;
-      },
-      (err: HttpErrorResponse) => {
-        // error code here
-      }
-    );
+    this.httpClient
+      .post(this.API_URL + "content-page/add-subpage/" + pageId, advanceTable)
+      .subscribe(
+        (data) => {
+          this.dialogData = advanceTable;
+        },
+        (err: HttpErrorResponse) => {
+          // error code here
+        }
+      );
   }
   updateAdvanceTable(advanceTable: subPages): void {
     this.dialogData = advanceTable;
@@ -87,10 +90,11 @@ export class SubpagesService extends UnsubscribeOnDestroyAdapter {
   }
   deleteAdvanceTable(id: number) {
     return this.httpClient
-      .post(this.API_URL + "menu/delete/" + id, id)
+      .post(this.API_URL + "content-page/delete-subpage/" + id, id)
       .subscribe(
         (data) => {},
         (err: HttpErrorResponse) => {}
       );
   }
 }
+// https://api.primabi.co/api/v1/content-page/add-subpage/23

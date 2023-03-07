@@ -213,8 +213,14 @@
                       (contextmenu)="onContextMenu($event, row)"
                       [ngClass]="'tbl-col'"
                     >
-                      {{ row.videoImage }}</mat-cell
-                    >
+                      <!-- {{ row.videoImage }} -->
+
+                      <img
+                        src="{{ attachmentURL + row.videoImage }}"
+                        alt=""
+                        width="100rem"
+                      />
+                    </mat-cell>
                   </ng-container>
 
                   <ng-container matColumnDef="videoURL">
@@ -261,8 +267,14 @@
                       (contextmenu)="onContextMenu($event, row)"
                       [ngClass]="'tbl-col'"
                     >
-                      {{ row.snapshot }}</mat-cell
-                    >
+                      <!-- {{ row.snapshot }} -->
+
+                      <img
+                        src="{{ attachmentURL + row.snapshot }}"
+                        alt=""
+                        width="100rem"
+                      />
+                    </mat-cell>
                   </ng-container>
 
                   <!-- actions -->

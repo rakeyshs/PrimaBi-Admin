@@ -87,14 +87,5 @@ export class MenuSubMenuService extends UnsubscribeOnDestroyAdapter {
           // error code here
         }
       );
-    // return this.httpClient.delete(this.API_URL + "menu/" + id).subscribe(
-    //   (data) => {
-    //     alert(this.API_URL + "menu" + id);
-    //     console.log(id);
-    //   },
-    //   (err: HttpErrorResponse) => {
-    //     // error code here
-    //   }
-    // );
   }
 }

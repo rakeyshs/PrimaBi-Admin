@@ -9,7 +9,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { BehaviorSubject, fromEvent, merge, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { FormDialogComponent } from "./dialogs/form-dialog/form-dialog.component";
-import { DeleteDialogComponent } from "./dialogs/delete-dialog/delete-dialog.component";
 import { DateAdapter, MAT_DATE_LOCALE } from "@angular/material/core";
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu";
 import { SelectionModel } from "@angular/cdk/collections";
@@ -19,7 +18,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { PagesService } from "../pages.service";
 import { addPagesModle } from "../pages.modle";
 import { Router } from "@angular/router";
-import { EditDialogComponent } from "./dialogs/edit-dialog/edit-dialog.component";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-pages-detail",
@@ -46,7 +45,7 @@ export class PagesDetailComponent
   selection = new SelectionModel<addPagesModle>(true, []);
   pageId: number;
   advanceTable: addPagesModle | null;
-
+  attachmentURL = "https://api.primabi.co/uploads/";
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -174,30 +173,28 @@ export class PagesDetailComponent
     this.pageId = row.pageId;
     // alert(this.menuId);
 
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: row,
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this page!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.advanceTableService.deleteAdvanceTable(this.pageId);
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
           (x) => x.pageId === this.pageId
         );
-        // for delete we use splice in order to remove single object from DataService
         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
         this.refreshTable();
-        this.showNotification(
-          "snackbar-danger",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
+        Swal.fire({
+          icon: "success",
+          title: "Your page has been deleted.",
+          showConfirmButton: false,
+          timer: 1800,
+        });
       }
     });
   }

@@ -142,30 +142,30 @@ export class MenuSubMenuComponent
     this.menuId = row.menuId;
     // alert(this.menuId);
 
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: row,
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this menu or sub-menu!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.advanceTableService.deleteAdvanceTable(this.menuId);
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
           (x) => x.menuId === this.menuId
         );
-        // for delete we use splice in order to remove single object from DataService
         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
         this.refreshTable();
-        this.showNotification(
-          "snackbar-danger",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
+        // Swal.fire("Deleted!", "Your sub-page has been deleted.", "success");
+
+        Swal.fire({
+          icon: "success",
+          title: "Your menu or sub-menu has been deleted.",
+          showConfirmButton: false,
+          timer: 1800,
+        });
       }
     });
   }

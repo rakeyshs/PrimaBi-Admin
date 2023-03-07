@@ -3,6 +3,8 @@ import { Component, Inject } from "@angular/core";
 
 import { MenuSubMenuService } from "../../menu-sub-menu.service";
 
+import Swal from "sweetalert2";
+
 @Component({
   selector: "app-delete-dialog",
   templateUrl: "./delete-dialog.component.html",

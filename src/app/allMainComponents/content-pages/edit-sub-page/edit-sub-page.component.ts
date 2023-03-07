@@ -9,8 +9,6 @@ import { DataSource } from "@angular/cdk/collections";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { BehaviorSubject, fromEvent, merge, Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { FormDialogComponent } from "./dialogs/form-dialog/form-dialog.component";
-import { DeleteDialogComponent } from "./dialogs/delete-dialog/delete-dialog.component";
 import { DateAdapter, MAT_DATE_LOCALE } from "@angular/material/core";
 import { MatMenu, MatMenuTrigger } from "@angular/material/menu";
 import { SelectionModel } from "@angular/cdk/collections";
@@ -18,6 +16,7 @@ import { ActivatedRoute } from "@angular/router";
 
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import Swal from "sweetalert2";
+import { FormDialogBoxComponent } from "./dialogs-box/form-dialog-box/form-dialog-box.component";
 
 @Component({
   selector: "app-edit-sub-page",
@@ -73,10 +72,11 @@ export class EditSubPageComponent
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(FormDialogComponent, {
+    const dialogRef = this.dialog.open(FormDialogBoxComponent, {
       data: {
         advanceTable: this.advanceTable,
         action: "add",
+        pageId: this.pageId,
       },
       direction: tempDirection,
     });
@@ -102,7 +102,7 @@ export class EditSubPageComponent
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(FormDialogComponent, {
+    const dialogRef = this.dialog.open(FormDialogBoxComponent, {
       data: {
         advanceTable: row,
         action: "edit",
@@ -129,34 +129,35 @@ export class EditSubPageComponent
       }
     });
   }
+
+  // for delete sub page
   deleteItem(row) {
     this.subPageId = row.subPageId;
-    // alert(this.menuId);
 
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: row,
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((result) => {
-      if (result === 1) {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You want to delete this sub-page!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.advanceTableService.deleteAdvanceTable(this.subPageId);
         const foundIndex = this.exampleDatabase.dataChange.value.findIndex(
           (x) => x.subPageId === this.subPageId
         );
-        // for delete we use splice in order to remove single object from DataService
         this.exampleDatabase.dataChange.value.splice(foundIndex, 1);
         this.refreshTable();
-        this.showNotification(
-          "snackbar-danger",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
+        // Swal.fire("Deleted!", "Your sub-page has been deleted.", "success");
+
+        Swal.fire({
+          icon: "success",
+          title: "Your sub-page has been deleted.",
+          showConfirmButton: false,
+          timer: 1800,
+        });
       }
     });
   }

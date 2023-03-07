@@ -43,8 +43,8 @@
                   <div class="row">
                     <div class="col-4">PPT :</div>
                     <div class="col-8">
-                      <a href="{{ pptUrl }}">
-                        {{ pptUrl }}
+                      <a href="{{ attachmentURL + pptUrl }}">
+                        {{ attachmentURL + pptUrl }}
                       </a>
                     </div>
                   </div>
@@ -56,8 +56,14 @@
                   <div class="row">
                     <div class="col-4">Video Image :</div>
                     <div class="col-8">
-                      <a href=" {{ videoImage }}" target="_bla">
-                        {{ videoImage }}
+                      <a href=" {{ attachmentURL + videoImage }}" target="_bla">
+                        <!-- {{ attachmentURL + videoImage }} -->
+
+                        <img
+                          src="{{ attachmentURL + videoImage }}"
+                          alt=""
+                          width="250rem"
+                        />
                       </a>
                     </div>
                   </div>
@@ -84,8 +90,14 @@
                   <div class="row">
                     <div class="col-4">Snapshot :</div>
                     <div class="col-8">
-                      <a href=" {{ snapshot }}" target="_bla">
-                        {{ snapshot }}
+                      <a href=" {{ attachmentURL + snapshot }}" target="_bla">
+                        <!-- {{ attachmentURL + snapshot }} -->
+
+                        <img
+                          src="{{ attachmentURL + snapshot }}"
+                          alt=""
+                          width="250rem"
+                        />
                       </a>
                     </div>
                   </div>

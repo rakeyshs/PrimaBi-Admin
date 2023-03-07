@@ -24,6 +24,7 @@ export class ViewPageComponent {
   description: any;
   snapshot: any;
   subpages: any;
+  attachmentURL = "https://api.primabi.co/uploads/";
 
   ngOnInit() {
     this.subkey = this.route.params.subscribe((params) => {

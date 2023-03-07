@@ -75,14 +75,11 @@ export class AddPagesComponent implements OnInit {
   onAddPagesForm() {
     this.addPagesData.title = this.addPagesForm.value.title;
     this.addPagesData.keyword = this.addPagesForm.value.keyword;
-    this.addPagesData.ppTpath =
-      this.attachmentURL + this.pptPath.response.slice(8);
-    this.addPagesData.videoImage =
-      this.attachmentURL + this.vdoImgPath.response.slice(8);
+    this.addPagesData.ppTpath = this.pptPath.response.slice(8);
+    this.addPagesData.videoImage = this.vdoImgPath.response.slice(8);
     this.addPagesData.videoURL = this.addPagesForm.value.videoURL;
     this.addPagesData.description = this.addPagesForm.value.descriptions;
-    this.addPagesData.snapshot =
-      this.attachmentURL + this.snapShotPaths.response.slice(8);
+    this.addPagesData.snapshot = this.snapShotPaths.response.slice(8);
     this.addPagesData.subPages = this.subPageList;
 
     console.log("Form Value", this.addPagesData);
