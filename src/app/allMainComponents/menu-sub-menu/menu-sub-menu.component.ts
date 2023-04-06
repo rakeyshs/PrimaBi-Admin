@@ -94,12 +94,18 @@ export class MenuSubMenuComponent
         this.loadData();
         // this.refreshTable();
 
-        this.showNotification(
-          "snackbar-success",
-          "Add Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
+        // this.showNotification(
+        //   "snackbar-success",
+        //   "Add Record Successfully...!!!",
+        //   "bottom",
+        //   "center"
+        // );
+        Swal.fire({
+          icon: "success",
+          title: "Your Menu or Sub-Menu has been added",
+          showConfirmButton: false,
+          timer: 1200,
+        });
       }
     });
   }
@@ -129,12 +135,18 @@ export class MenuSubMenuComponent
           this.advanceTableService.getDialogData();
         // And lastly refresh table
         this.refreshTable();
-        this.showNotification(
-          "snackbar-success",
-          "Edit Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
+        // this.showNotification(
+        //   "snackbar-success",
+        //   "Edit Record Successfully...!!!",
+        //   "bottom",
+        //   "center"
+        // );
+        Swal.fire({
+          icon: "success",
+          title: "Your Menu or Sub-Menu has been updated",
+          showConfirmButton: false,
+          timer: 1200,
+        });
       }
     });
   }
@@ -223,7 +235,7 @@ export class MenuSubMenuComponent
   }
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
-      duration: 2000,
+      duration: 1000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
