@@ -1,3 +1,21 @@
 :host ::ng-deep .ck-editor__editable_inline {
   min-height: 200px;
 }
+
+.mat-column-description {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 75% !important;
+  width: 28% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  justify-content: center;
+  word-break: break-word;
+  padding: 15px;
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  // border: 2px solid red;
+  // width: 60% !important ;
+}

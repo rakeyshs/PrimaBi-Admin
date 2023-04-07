@@ -29,6 +29,7 @@ import {
 import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { NgScrollbarModule } from "ngx-scrollbar";
 import { AddPagesComponent } from "./add-pages/add-pages.component";
+import { SafePipe } from "./safe.pipe";
 
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, "assets/i18n/", ".json");
@@ -44,6 +45,7 @@ export function createTranslateLoader(http: HttpClient): any {
     AuthLayoutComponent,
     MainLayoutComponent,
     AddPagesComponent,
+    SafePipe,
   ],
   imports: [
     BrowserModule,

@@ -77,7 +77,10 @@ export class AddPagesComponent implements OnInit {
     this.addPagesData.keyword = this.addPagesForm.value.keyword;
     this.addPagesData.ppTpath = this.pptPath.response.slice(8);
     this.addPagesData.videoImage = this.vdoImgPath.response.slice(8);
-    this.addPagesData.videoURL = this.addPagesForm.value.videoURL;
+    this.addPagesData.videoURL = this.addPagesForm.value.videoURL.replace(
+      "watch?v=",
+      "embed/"
+    );
     this.addPagesData.description = this.addPagesForm.value.descriptions;
     this.addPagesData.snapshot = this.snapShotPaths.response.slice(8);
     this.addPagesData.subPages = this.subPageList;
@@ -94,8 +97,10 @@ export class AddPagesComponent implements OnInit {
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, Add it!",
     }).then((result) => {
-      if (result.isConfirmed) {
-        this.pagesServe.addContentPage(this.addPagesData);
+      for (let i = 0; i <= 0; i++) {
+        if (result.isConfirmed) {
+          this.pagesServe.addContentPage(this.addPagesData);
+        }
       }
     });
   }

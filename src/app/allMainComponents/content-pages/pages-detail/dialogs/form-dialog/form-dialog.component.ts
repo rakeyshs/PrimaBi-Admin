@@ -170,7 +170,8 @@ export class FormDialogComponent {
       this.advanceTableForm.value.snapshot = this.snapShotPaths
         ? this.snapShotPaths.response.slice(8)
         : this.advanceTableForm.value.snapshot;
-
+      this.advanceTableForm.value.videoURL =
+        this.advanceTableForm.value.videoURL.replace("watch?v=", "embed/");
       this.advanceTableService.updateAdvanceTable(this.advanceTableForm.value);
     }
     console.log(this.advanceTableForm.value);

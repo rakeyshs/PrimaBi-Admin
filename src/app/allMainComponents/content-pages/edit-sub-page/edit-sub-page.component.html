@@ -154,7 +154,7 @@
                     *matHeaderCellDef
                     mat-sort-header
                     [ngClass]="'tbl-col'"
-                    >heading
+                    >Heading
                   </mat-header-cell>
                   <mat-cell
                     *matCellDef="let row"
@@ -170,15 +170,17 @@
                     *matHeaderCellDef
                     mat-sort-header
                     [ngClass]="'tbl-col'"
-                    >description
+                    >Description
                   </mat-header-cell>
                   <mat-cell
                     *matCellDef="let row"
                     (contextmenu)="onContextMenu($event, row)"
                     [ngClass]="'tbl-col'"
                   >
-                    {{ row.description }}</mat-cell
-                  >
+                    <!-- {{ row.description }} -->
+
+                    <div [innerHTML]="row.description"></div>
+                  </mat-cell>
                 </ng-container>
 
                 <!-- actions -->
